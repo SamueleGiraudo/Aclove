@@ -1,0 +1,8 @@
+let pairs = put Pairs in
+let pair = put Pair in
+
+'diagonal [
+    @ %x -> pair %x %x
+]
+: +%e ^ +pairs +%e +%e
+

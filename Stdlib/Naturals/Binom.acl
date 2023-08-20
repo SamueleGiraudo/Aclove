@@ -1,0 +1,8 @@
+'binom [
+    @ !Zero !Zero -> !Numbers/One;
+    @ !Zero (!Succ %n) -> !Zero;
+    @ (!Succ %n) !Zero -> !Numbers/One;
+    @ (!Succ %n1) (!Succ %n2) -> !Add (@ %n1 %n2) (@ %n1 (!Succ %n2))
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals
+

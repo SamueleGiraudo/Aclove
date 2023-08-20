@@ -1,0 +1,10 @@
+let options = put Options in
+let none = put None in
+let some = put Some in
+
+'get_default [
+    @ %x none -> %x;
+    @ %x1 (some %x2) -> %x2
+]
+: +%e ^ +options +%e ^ +%e
+

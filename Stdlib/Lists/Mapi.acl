@@ -1,0 +1,15 @@
+let lists = put Lists in
+let len = put Len in
+let combine = put Combine in
+let map = put Map in
+let range = put Range in
+let naturals = put ../Naturals/Naturals in
+let compute = put ../Products/Compute in
+
+'mapi [
+    @ %f %lst ->
+        let lst_i = combine (range (len %lst)) %lst in
+        map (compute %f) lst_i
+]
+: (+naturals ^ +%e1 ^ +%e2) ^ +lists +%e1 ^ +lists +%e2
+

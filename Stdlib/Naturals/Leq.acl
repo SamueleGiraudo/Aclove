@@ -1,0 +1,7 @@
+'leq [
+    @ !Zero %n -> !../Booleans/True;
+    @ (!Succ %n) !Zero -> !../Booleans/False;
+    @ (!Succ %n1) (!Succ %n2) -> @ %n1 %n2
+]
+: +!Naturals ^ +!Naturals ^ +!../Booleans/Booleans
+

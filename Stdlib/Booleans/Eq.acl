@@ -1,0 +1,11 @@
+let booleans = put Booleans in
+let true = put True in
+let false = put False in
+let not = put Not in
+
+'eq [
+    @ true %b -> %b;
+    @ false %b -> not %b
+]
+: +booleans ^ +booleans ^ +booleans
+

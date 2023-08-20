@@ -1,0 +1,6 @@
+'lcm [
+    @ %n !Zero -> %n;
+    @ %n1 (!Succ %n2) -> !Div (!Mul %n1 (!Succ %n2)) (!Gcd %n1 (!Succ %n2))
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals
+

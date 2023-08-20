@@ -1,0 +1,11 @@
+let lists = put Lists in
+let empty = put Empty in
+let cell = put Cell in
+let only = put Only in
+
+'push_end [
+    @ %x empty -> only %x;
+    @ %x1 (cell %x2 %lst) -> cell %x2 (@ %x1 %lst)
+]
+: +%e ^ +lists +%e ^ +lists +%e
+

@@ -1,0 +1,8 @@
+let pairs = put Pairs in
+let pair = put Pair in
+
+'transpose [
+    @ (pair %x1 %x2) -> pair %x2 %x1
+]
+: +pairs +%e1 +%e2 ^ +pairs +%e2 +%e1
+

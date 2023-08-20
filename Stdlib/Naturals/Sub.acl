@@ -1,0 +1,7 @@
+'sub [
+    @ %n !Zero -> %n;
+    @ !Zero (!Succ %n) -> !Zero;
+    @ (!Succ %n1) (!Succ %n2) -> @ %n1 %n2
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals
+

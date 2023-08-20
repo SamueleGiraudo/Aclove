@@ -1,0 +1,10 @@
+let lists = put Lists in
+let empty = put Empty in
+let cell = put Cell in
+
+'map [
+    @ %f empty -> empty;
+    @ %f (cell %x %lst) -> cell (%f %x) (@ %f %lst)
+]
+: (+%e1 ^ +%e2) ^ +lists +%e1 ^ +lists +%e2
+

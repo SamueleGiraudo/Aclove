@@ -1,0 +1,12 @@
+let lists = put Lists in
+let cell = put Cell in
+let naturals = put ../Naturals/Naturals in
+let zero = put ../Naturals/Zero in
+let succ = put ../Naturals/Succ in
+
+'nth [
+    @ (cell %x %lst) zero -> %x;
+    @ (cell %x %lst) (succ %n) -> @ %lst %n
+]
+: +lists +%e ^ +naturals ^ +%e
+

@@ -1,0 +1,7 @@
+'is_even [
+    @ !Zero -> !../Booleans/True;
+    @ !Numbers/One -> !../Booleans/False;
+    @ (!Succ (!Succ %n)) -> @ %n
+]
+: +!Naturals ^ +!../Booleans/Booleans
+

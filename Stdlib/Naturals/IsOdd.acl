@@ -1,0 +1,2 @@
+!../Functions/Compose !../Booleans/Not !IsEven
+: +!Naturals ^ +!../Booleans/Booleans

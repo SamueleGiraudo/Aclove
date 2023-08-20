@@ -1,0 +1,568 @@
+let becard = put ../Stdlib/Combinators/Becard in
+let black_bird = put ../Stdlib/Combinators/BlackBird in
+let blue_bird = put ../Stdlib/Combinators/BlueBird in
+let bunting = put ../Stdlib/Combinators/Bunting in
+let cardinal = put ../Stdlib/Combinators/Cardinal in
+let finch = put ../Stdlib/Combinators/Finch in
+let idiot = put ../Stdlib/Combinators/Idiot in
+let kestrel = put ../Stdlib/Combinators/Kestrel in
+let owl = put ../Stdlib/Combinators/Owl in
+let starling = put ../Stdlib/Combinators/Starling in
+let thrush = put ../Stdlib/Combinators/Thrush in
+let vireo = put ../Stdlib/Combinators/Vireo in
+
+let id = put ../Stdlib/Functions/Id in
+let const = put ../Stdlib/Functions/Const in
+let flip = put ../Stdlib/Functions/Flip in
+let compose = put ../Stdlib/Functions/Compose in
+let compose2 = put ../Stdlib/Functions/Compose2 in
+let pipe = put ../Stdlib/Functions/Pipe in
+let negate = put ../Stdlib/Functions/Negate in
+let iter = put ../Stdlib/Functions/Iter in
+let leq_to_eq = put ../Stdlib/Functions/LeqToEq in
+
+let bools = put ../Stdlib/Booleans/Booleans in
+let true = put ../Stdlib/Booleans/True in
+let false = put ../Stdlib/Booleans/False in
+let not = put ../Stdlib/Booleans/Not in
+let or = put ../Stdlib/Booleans/Or in
+let and = put ../Stdlib/Booleans/And in
+let eq_bool = put ../Stdlib/Booleans/Eq in
+let imp = put ../Stdlib/Booleans/Imp in
+let if = put ../Stdlib/Booleans/If in
+
+let pairs = put ../Stdlib/Products/Pairs in
+let triples = put ../Stdlib/Products/Triples in
+let pair = put ../Stdlib/Products/Pair in
+let triple = put ../Stdlib/Products/Triple in
+let fst = put ../Stdlib/Products/Fst in
+let snd = put ../Stdlib/Products/Snd in
+let compute = put ../Stdlib/Products/Compute in
+let diagonal = put ../Stdlib/Products/Diagonal in
+let transpose = put ../Stdlib/Products/Transpose in
+let pair_map = put ../Stdlib/Products/Map in
+
+let nats = put ../Stdlib/Naturals/Naturals in
+let zero = put ../Stdlib/Naturals/Zero in
+let succ = put ../Stdlib/Naturals/Succ in
+let one = put ../Stdlib/Naturals/Numbers/One in
+let two = put ../Stdlib/Naturals/Numbers/Two in
+let three = put ../Stdlib/Naturals/Numbers/Three in
+let four = put ../Stdlib/Naturals/Numbers/Four in
+let five = put ../Stdlib/Naturals/Numbers/Five in
+let six = put ../Stdlib/Naturals/Numbers/Six in
+let seven = put ../Stdlib/Naturals/Numbers/Seven in
+let height = put ../Stdlib/Naturals/Numbers/Eight in
+let nine = put ../Stdlib/Naturals/Numbers/Nine in
+let ten = put ../Stdlib/Naturals/Numbers/Ten in
+let pred = put ../Stdlib/Naturals/Pred in
+let leq = put ../Stdlib/Naturals/Leq in
+let geq = put ../Stdlib/Naturals/Geq in
+let eq_nat = put ../Stdlib/Naturals/Eq in
+let add = put ../Stdlib/Naturals/Add in
+let sub = put ../Stdlib/Naturals/Sub in
+let mul = put ../Stdlib/Naturals/Mul in
+let div = put ../Stdlib/Naturals/Div in
+let mod = put ../Stdlib/Naturals/Mod in
+let pow = put ../Stdlib/Naturals/Pow in
+let gcd = put ../Stdlib/Naturals/Gcd in
+let lcm = put ../Stdlib/Naturals/Lcm in
+let min = put ../Stdlib/Naturals/Min in
+let max = put ../Stdlib/Naturals/Max in
+let is_even = put ../Stdlib/Naturals/IsEven in
+let is_odd = put ../Stdlib/Naturals/IsOdd in
+let fact = put ../Stdlib/Naturals/Fact in
+let fibo = put ../Stdlib/Naturals/Fibo in
+let binom = put ../Stdlib/Naturals/Binom in
+let catalan = put ../Stdlib/Naturals/Catalan in
+let ackermann = put ../Stdlib/Naturals/Ackermann in
+
+let lists = put ../Stdlib/Lists/Lists in
+let empty = put ../Stdlib/Lists/Empty in
+let cell = put ../Stdlib/Lists/Cell in
+let only = put ../Stdlib/Lists/Only in
+let hd = put ../Stdlib/Lists/Hd in
+let tl = put ../Stdlib/Lists/Tl in
+let is_empty = put ../Stdlib/Lists/IsEmpty in
+let push_end = put ../Stdlib/Lists/PushEnd in
+let len = put ../Stdlib/Lists/Len in
+let nth = put ../Stdlib/Lists/Nth in
+let reverse = put ../Stdlib/Lists/Reverse in
+let append = put ../Stdlib/Lists/Append in
+let flatten = put ../Stdlib/Lists/Flatten in
+let init = put ../Stdlib/Lists/Init in
+let range = put ../Stdlib/Lists/Range in
+let combine = put ../Stdlib/Lists/Combine in
+let map = put ../Stdlib/Lists/Map in
+let map_2 = put ../Stdlib/Lists/Map2 in
+let product = put ../Stdlib/Lists/Product in
+let mem = put ../Stdlib/Lists/Mem in
+let grow = put ../Stdlib/Lists/Grow in
+let mapi = put ../Stdlib/Lists/Mapi in
+let filter = put ../Stdlib/Lists/Filter in
+let find = put ../Stdlib/Lists/Find in
+let for_all = put ../Stdlib/Lists/ForAll in
+let for_all_2 = put ../Stdlib/Lists/ForAll2 in
+let eq_list = put ../Stdlib/Lists/Eq in
+let exists = put ../Stdlib/Lists/Exists in
+let fold_left = put ../Stdlib/Lists/FoldLeft in
+let fold_right = put ../Stdlib/Lists/FoldRight in
+let simplify_runs = put ../Stdlib/Lists/SimplifyRuns in
+let merge = put ../Stdlib/Lists/Merge in
+let sort = put ../Stdlib/Lists/Sort in
+let sort_uniq = put ../Stdlib/Lists/SortUniq in
+let partition = put ../Stdlib/Lists/Partition in
+let split = put ../Stdlib/Lists/Split in
+
+let options = put ../Stdlib/Options/Options in
+let none = put ../Stdlib/Options/None in
+let some = put ../Stdlib/Options/Some in
+let is_none = put ../Stdlib/Options/IsNone in
+let is_some = put ../Stdlib/Options/IsSome in
+let get = put ../Stdlib/Options/Get in
+let get_default = put ../Stdlib/Options/GetDefault in
+let option_map = put ../Stdlib/Options/Map in
+let bind = put ../Stdlib/Options/Bind in
+
+let maps = put ../Stdlib/Maps/Maps in
+let empty_map = put ../Stdlib/Maps/Empty in
+let singleton = put ../Stdlib/Maps/Singleton in
+let image = put ../Stdlib/Maps/Image in
+let keys = put ../Stdlib/Maps/Keys in
+let values = put ../Stdlib/Maps/Values in
+let map_from_function = put ../Stdlib/Maps/FromFunction in
+let preimages = put ../Stdlib/Maps/Preimages in
+
+{
+let bits = put ../Stdlib/BitSequences/Bits/Bits in
+let bit_sequences = put ../Stdlib/BitSequences/BitSequences in
+let empty_bit_sequence = put ../Stdlib/BitSequences/Empty in
+let bit_0 = put ../Stdlib/BitSequences/Bits/Bit0 in
+let bit_1 = put ../Stdlib/BitSequences/Bits/Bit1 in
+let push_0 = put ../Stdlib/BitSequences/Push0 in
+let push_1 = put ../Stdlib/BitSequences/Push1 in
+let is_empty = put ../Stdlib/BitSequences/IsEmpty in
+let eq_bit = put ../Stdlib/BitSequences/Bits/Eq in
+let eq_bit_sequence = put ../Stdlib/BitSequences/Eq in
+let append = put ../Stdlib/BitSequences/Append in
+let reverse = put ../Stdlib/BitSequences/Reverse in
+let not_bit_sequence = put ../Stdlib/BitSequences/Not in
+let or_bit_sequence = put ../Stdlib/BitSequences/Or in
+let and_bit_sequence = put ../Stdlib/BitSequences/And in
+let xor_bit_sequence = put ../Stdlib/BitSequences/Xor in
+let align = put ../Stdlib/BitSequences/Align in
+let shl = put ../Stdlib/BitSequences/Shl in
+let shr = put ../Stdlib/BitSequences/Shr in
+let rol = put ../Stdlib/BitSequences/Rol in
+let ror = put ../Stdlib/BitSequences/Ror in
+let nibble_0000 = put ../Stdlib/BitSequences/Nibbles/0000 in
+let nibble_0001 = put ../Stdlib/BitSequences/Nibbles/0001 in
+let nibble_0010 = put ../Stdlib/BitSequences/Nibbles/0010 in
+let nibble_0011 = put ../Stdlib/BitSequences/Nibbles/0011 in
+let nibble_0100 = put ../Stdlib/BitSequences/Nibbles/0100 in
+let nibble_0101 = put ../Stdlib/BitSequences/Nibbles/0101 in
+let nibble_0110 = put ../Stdlib/BitSequences/Nibbles/0110 in
+let nibble_0111 = put ../Stdlib/BitSequences/Nibbles/0111 in
+let nibble_1000 = put ../Stdlib/BitSequences/Nibbles/1000 in
+let nibble_1001 = put ../Stdlib/BitSequences/Nibbles/1001 in
+let nibble_1010 = put ../Stdlib/BitSequences/Nibbles/1010 in
+let nibble_1011 = put ../Stdlib/BitSequences/Nibbles/1011 in
+let nibble_1100 = put ../Stdlib/BitSequences/Nibbles/1100 in
+let nibble_1101 = put ../Stdlib/BitSequences/Nibbles/1101 in
+let nibble_1110 = put ../Stdlib/BitSequences/Nibbles/1110 in
+let nibble_1111 = put ../Stdlib/BitSequences/Nibbles/1111 in
+}
+
+{
+let integers = put ../Stdlib/Integers/Integers in
+let zero_int = put ../Stdlib/Integers/Numbers/Zero in
+let one_int = put ../Stdlib/Integers/Numbers/One in
+let two_int = put ../Stdlib/Integers/Numbers/Two in
+let is_zero_int = put ../Stdlib/Integers/IsZero in
+let push_0_int = put ../Stdlib/Integers/Push0 in
+let push_1_int = put ../Stdlib/Integers/Push1 in
+let opposite_int = put ../Stdlib/Integers/Opposite in
+let incr_int = put ../Stdlib/Integers/Incr in
+let decr_int = put ../Stdlib/Integers/Decr in
+let add_positive = put ../Stdlib/Integers/AddPositive in
+let add_int = put ../Stdlib/Integers/Add in
+let sub_int = put ../Stdlib/Integers/Sub in
+let mul_int = put ../Stdlib/Integers/Mul in
+let fact_int = put ../Stdlib/Integers/Fact in
+
+}
+
+{true <pair> one <pair> false <pair> three}
+
+
+{range zero}
+
+{range three}
+{map not empty}
+
+{
+(init ten fibo)
+}
+
+(if
+    false
+    true
+    (eq_bool (and (or (not true) (not false)) (or true false))
+        (not (imp false true))))
+<pair>
+true
+<pair>
+(if true false false)
+<pair>
+(if (or (eq_nat height seven) (leq two three)) three seven)
+<pair>
+(eq_bool true false)
+<pair>
+(sub ten three)
+<pair>
+(sub three ten)
+<pair>
+(mod ten five)
+<pair>
+(pow two seven)
+<pair>
+(gcd ten height)
+<pair>
+(lcm ten height)
+<pair>
+(leq (sub four three) (add three five))
+<pair>
+(mul five five)
+<pair>
+(div six three)
+<pair>
+(pred (succ (succ zero)))
+<pair>
+(mod (add five five) (add five five))
+<pair>
+(eq_bool false true)
+<pair>
+(not false)
+<pair>
+(mul three four)
+<pair>
+(eq_nat five five)
+<pair>
+(fibo (mul three five))
+<pair>
+(fibo (mul three five))
+<pair>
+(fibo (mul three five))
+<pair>
+(fibo (mul three five))
+<pair>
+(min three five)
+<pair>
+(max three five)
+<pair>
+(binom four two)
+<pair>
+(ackermann two two)
+<pair>
+(catalan five)
+<pair>
+(leq five ten)
+<pair>
+(geq five nine)
+<pair>
+(is_even seven)
+<pair>
+(is_odd seven)
+<pair>
+(iter three (add two) zero)
+<pair>
+(cell true (cell false empty))
+<pair>
+(range ten)
+<pair>
+(init ten fibo)
+<pair>
+(init six (binom five))
+<pair>
+(product (init six fibo) (init four fact))
+<pair>
+(merge leq (cell two (cell one empty)) (cell ten empty))
+<pair>
+(sort leq (cell two (cell one empty)))
+<pair>
+(sort leq (init ten (binom nine)))
+<pair>
+(sort_uniq leq (init ten (binom nine)))
+<pair>
+false
+<pair>
+(sort_uniq leq (init (mul ten two) (binom ten)))
+<pair>
+(id (id map id (range three)))
+<pair>
+(sort_uniq leq (init (mul one three) (binom (add one three))))
+<pair>
+(pair (fibo (add ten six)) (fibo (add ten six)))
+<pair>
+partition is_even (init (add two ten) fibo)
+<pair>
+split (init ten (diagonal))
+<pair>
+fold_left add zero (init (add one seven) fibo)
+<pair>
+init (add four three) (pow two)
+<pair>
+map_from_function fibo (range ten)
+
+{if true (fact three) (fact (mul ten ten))}
+{if false (fact (mul ten ten)) (fact three)}
+{fact seven}
+
+{
+let x = one <pair> two in
+
+(
+x
+<pair>
+(init six catalan)
+<pair>
+(fact three)
+<pair>
+(binom five two)
+)
+}
+
+{
+}
+
+{
+let x = fibo (add ten nine) in
+x
+}
+
+{pair x (pair x x)}
+
+
+
+
+{add three two}
+
+{
+fibo (add ten ten)
+}
+
+{
+pair
+(fibo (add ten six))
+(fibo (add ten six))
+}
+
+
+
+
+
+{
+{
+let lst = cell one (cell five (cell two empty)) in
+let lst2 = cell five (cell ten empty) in
+}
+{hd lst}
+{tl lst}
+{push_end ten lst}
+{len lst}
+{nth lst one}
+{reverse lst}
+{lst}
+{append lst lst2}
+{flatten (cell lst (cell lst2 empty))}
+{fst (pair lst lst2)}
+
+{snd (pair true three)}
+
+{let tr = triple one two three in}
+{snd tr}
+
+{starling}
+{starling %x1 %x2 %x3}
+{blue_bird %f %g %x}
+{pair false (pair one two)}
+
+{only two}
+
+{starling mul fact four}
+
+{triple one one %x}
+
+{let lst3 = cell true (cell false (cell false empty)) in}
+{combine lst lst3}
+{map fact lst}
+{product lst3 (product (product lst lst3) lst2)}
+{mem eq_nat five lst}
+{init (mul two three) fibo}
+{range ten}
+{grow (flip nth two) (grow hd lst3)}
+
+{mapi mul (range ten)}
+
+{init height fact}
+
+{filter is_odd (range (mul two six))}
+
+{find (flip geq (mul ten ten)) (init six fact)}
+
+{for_all is_even (range zero)}
+{exists is_even (range one)}
+
+{fold_left add zero (init seven fibo)}
+{fold_right sub (init seven fibo) zero}
+{fold_left sub zero (init seven fibo)}
+
+{
+let lst4 = init (mul four two) (compose ((flip mod) six) fibo) in
+let lst5 = sort leq lst4 in
+let lst6 = sort_uniq leq lst4 in
+(triple lst4 lst5 lst6)
+}
+
+{nibble_0000}
+
+{
+eq_bit_sequence +
+    (append nibble_1000 nibble_0100) +
+    (append nibble_1000 nibble_0110)
+}
+
+{
+eq_bit_sequence +
+    (append (append nibble_1000 nibble_0110) nibble_0100) +
+    nibble_0100
+}
+{
+let lst1 = range ten in
+let lst2 = reverse (range ten) in
+pair +
+    (eq_list eq_nat lst1 lst2) +
+    (eq_list eq_nat (range three) (range three))
+}
+{
+eq_list eq_nat (range zero) (range one)
+}
+{
+not_bit_sequence nibble_1000
+}
+
+{map_2 mul (init five fact) (range five)}
+
+{align nibble_1000 empty_bit_sequence}
+{align (append nibble_0100 nibble_1000) nibble_1011}
+{or_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+{and_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+
+{fibo (mul two three)}
+{succ (snd (pair true one))}
+{(id range) (id ten)}
+
+{shl nibble_1011}
+{shr nibble_1011}
+{rol nibble_1011}
+{ror nibble_1011}
+
+{singleton four true}
+
+{map (compose range fibo) (range nine)}
+
+{map fibo (range (mul five three))}
+{fibo (mul five four)}
+{add (mul four seven) two}
+
+{pair (fact six) (fact seven)}
+
+{let n = (mul two one) in}
+{map (binom n) (range (succ n))}
+{map (mul five) (range two)}
+{triple triple triple triple}
+{fold_left}
+
+{xor_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+
+{is_zero_int zero_int}
+{opposite_int two_int}
+
+{incr_bit_sequence nibble_1111}
+{decr_bit_sequence nibble_0101}
+{decr_bit_sequence (push_1 empty_bit_sequence)}
+{incr_int (pair true nibble_1011)}
+{incr_int (pair false nibble_1011)}
+{incr_int (pair false (push_1 empty_bit_sequence))}
+{decr_int (pair false nibble_1011)}
+{decr_int (pair true nibble_1011)}
+{decr_int (pair true empty_bit_sequence)}
+{add_bit_sequences nibble_1101 nibble_1011}
+{sub_bit_sequences nibble_0101 nibble_0100}
+{sub_bit_sequences nibble_0100 nibble_0101}
+{decr_bit_sequence (push_0 empty_bit_sequence)}
+{decr_bit_sequence empty_bit_sequence}
+{sub_bit_sequences (push_0 empty) (push_1 empty)}
+{sub_bit_sequences empty empty}
+{decr_bit_sequence (push_0 empty)}
+
+{decr_bit_sequence (push_0 (sub_bit_sequences empty empty))}
+{sub_bit_sequences empty empty}
+{decr_bit_sequence (push_0 empty)}
+
+{push_1_int two_int}
+
+{add_positive one_int (add_positive (add_positive two_int two_int) two_int)}
+
+{
+add_positive +
+(add_positive
+    (add_positive
+        one_int
+        (add_positive (add_positive two_int two_int) two_int))
+    (add_positive one_int one_int))
+(add_positive two_int one_int)
+}
+
+{add_positive (pair true nibble_1111) (pair true nibble_1111)}
+
+{add_positive two_int}
+{add_positive}
+
+{pair (id one) (id false)}
+{snd (pair one true)}
+
+{add_int (add_int one_int two_int) two_int}
+{sub_int (sub_int one_int two_int) two_int}
+{sub_int one_int two_int}
+{sub_int}
+
+{
+mul_int (mul_int two_int two_int) (add_int two_int one_int)
+}
+
+{
+fact_int +
+    (mul_int +
+        two_int +
+        (mul_int +
+            two_int +
+            (mul_int +
+                two_int +
+                (add_int two_int two_int)
+            )
+        )
+    )
+}
+
+
+{init ten fibo}
+
+{
+let u1 =
+    not_bit_sequence (append nibble_0101 (append nibble_0101 nibble_1100))
+in
+let u2 = append nibble_1010 nibble_1100 in
+xor_bit_sequence u1 u2
+}
+}

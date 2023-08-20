@@ -1,0 +1,13 @@
+let lists = put Lists in
+let combine = put Combine in
+let map = put Map in
+let for_all = put ForAll in
+let booleans = put ../Booleans/Booleans in
+let compute = put ../Products/Compute in
+let id = put ../Functions/Id in
+
+'for_all_2 [
+    @ %f %lst1 %lst2 -> for_all id (map (compute %f) (combine %lst1 %lst2))
+]
+: (+%e1 ^ +%e2 ^ +booleans) ^ +lists +%e1 ^ +lists +%e2 ^ +booleans
+

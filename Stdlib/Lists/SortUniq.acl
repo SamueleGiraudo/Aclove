@@ -1,0 +1,11 @@
+let lists = put Lists in
+let simplify_runs = put SimplifyRuns in
+let sort = put Sort in
+let booleans = put ../Booleans/Booleans in
+let leq_to_eq = put ../Functions/LeqToEq in
+
+'sort_uniq [
+    @ %leq %lst -> simplify_runs (leq_to_eq %leq) (sort %leq %lst)
+]
+: (+%e ^ +%e ^ +booleans) ^ +lists +%e ^ +lists +%e
+

@@ -1,0 +1,8 @@
+let pairs = put Pairs in
+let pair = put Pair in
+
+'build_pair_image [
+    @ %f %x -> pair %x (%f %x)
+]
+: (+%1 ^ +%2) ^ +%1 ^ +pairs +%1 +%2
+

@@ -1,0 +1,6 @@
+'add [
+    @ %n !Zero -> %n;
+    @ %n1 (!Succ %n2) -> !Succ (@ %n1 %n2)
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals
+

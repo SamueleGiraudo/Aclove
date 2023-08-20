@@ -1,0 +1,6 @@
+'fact [
+    @ !Zero -> !Numbers/One;
+    @ (!Succ %n) -> !Mul (!Succ %n) (@ %n)
+]
+: +!Naturals ^ +!Naturals
+

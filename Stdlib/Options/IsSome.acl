@@ -1,0 +1,6 @@
+let is_none = put IsNone in
+let not = put ../Booleans/Not in
+let compose = put ../Functions/Compose in
+
+compose not is_none
+

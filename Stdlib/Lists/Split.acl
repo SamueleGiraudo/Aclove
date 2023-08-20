@@ -1,0 +1,17 @@
+let lists = put Lists in
+let empty = put Empty in
+let cell = put Cell in
+
+let pairs = put ../Products/Pairs in
+let pair = put ../Products/Pair in
+let fst = put ../Products/Fst in
+let snd = put ../Products/Snd in
+
+'split [
+    @ empty -> pair empty empty;
+    @ (cell (pair %x1 %x2) %lst) ->
+        let tmp = @ %lst in
+        pair (cell %x1 (fst tmp)) (cell %x2 (snd tmp))
+]
+: +lists (+pairs +%1 +%2) ^ +pairs (+lists +%1) (+lists +%2)
+

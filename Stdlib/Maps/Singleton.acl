@@ -1,0 +1,9 @@
+let maps = put Maps in
+let only = put ../Lists/Only in
+let pair = put ../Products/Pair in
+
+'singleton [
+    @ %x %y -> only (pair %x %y)
+]
+: +%e1 ^ +%e2 ^ +maps +%e1 +%e2
+

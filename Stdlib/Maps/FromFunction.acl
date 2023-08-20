@@ -1,0 +1,12 @@
+let maps = put Maps in
+
+let lists = put ../Lists/Lists in
+let map = put ../Lists/Map in
+
+let build_pair_image = put ../Products/BuildPairImage in
+
+'from_function [
+    @ %f %lst -> map (build_pair_image %f) %lst
+]
+: (+%1 ^ +%2) ^ +lists +%1 ^ +maps +%1 +%2
+

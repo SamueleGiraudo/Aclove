@@ -1,0 +1,5 @@
+'min [
+    @ %n1 %n2 -> !../Booleans/If (!Leq %n1 %n2) %n1 %n2
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals 
+

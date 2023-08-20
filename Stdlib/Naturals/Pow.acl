@@ -1,0 +1,6 @@
+'pow [
+    @ %n !Zero -> !Zero;
+    @ %n1 (!Succ %n2) -> !Mul (@ %n1 %n2) %n1
+]
+: +!Naturals ^ +!Naturals ^ +!Naturals
+

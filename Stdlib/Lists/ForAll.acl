@@ -1,0 +1,14 @@
+let lists = put Lists in
+let empty = put Empty in
+let cell = put Cell in
+let booleans = put ../Booleans/Booleans in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+let if = put ../Booleans/If in
+
+'for_all [
+    @ %f empty -> true;
+    @ %f (cell %x %lst) -> if (%f %x) (@ %f %lst) false
+]
+: (+%e ^ +booleans) ^ +lists +%e ^ +booleans
+

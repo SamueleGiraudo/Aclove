@@ -1,0 +1,10 @@
+let booleans = put Booleans in
+let true = put True in
+let false = put False in
+
+'if [
+    @ true %x1 %x2 -> %x1;
+    @ false %x1 %x2 -> %x2
+]
+: +booleans ^ +%e ^ +%e ^ +%e
+

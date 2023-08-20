@@ -1,0 +1,14 @@
+let maps = put Maps in
+let empty = put Empty in
+
+let lists = put ../Lists/Lists in
+let cell = put ../Lists/Cell in
+
+let snd = put ../Products/Fst in
+
+'values [
+    @ empty -> empty;
+    @ (cell %pair %lst) -> cell (snd %pair) (@ %lst)
+]
+: +maps +%1 +%2 ^ +lists +%1
+

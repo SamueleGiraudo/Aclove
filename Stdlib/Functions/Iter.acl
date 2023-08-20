@@ -1,0 +1,10 @@
+let naturals = put ../Naturals/Naturals in
+let zero = put ../Naturals/Zero in
+let succ = put ../Naturals/Succ in
+
+'iter [
+    @ zero %f %x -> %x;
+    @ (succ %n) %f %x -> @ %n %f (%f %x)
+]
+: +naturals ^ (+%e ^ +%e) ^ +%e ^ +%e
+

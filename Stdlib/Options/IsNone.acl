@@ -1,0 +1,12 @@
+let options = put Options in
+let none = put None in
+let some = put Some in
+let booleans = put ../Booleans/Booleans in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+
+'is_none [
+    @ none -> true;
+    @ (some %e) -> false
+]
+: +options +%e ^ +booleans

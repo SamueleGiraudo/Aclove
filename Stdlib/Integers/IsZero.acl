@@ -1,0 +1,7 @@
+'is_zero [
+    @ (!Positive !../Naturals/Zero) -> !../Booleans/True;
+    @ (!Positive (!../Naturals/Succ %n)) -> !../Booleans/False;
+    @ (!Negative !../Naturals/Zero) -> !../Booleans/True;
+    @ (!Negative (!../Naturals/Succ %n)) -> !../Booleans/False
+]
+
