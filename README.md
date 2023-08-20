@@ -50,10 +50,24 @@ This creates an executable `aclove`. The following sections explain how to use i
 ## User guide
 This [page](Help.md) contains the description of the Aclove language.
 
-Aclove files have `.acl` as extension. Given such a file `Program.acl`, the command
+Aclove files have `.acl` as extension. The main command is
 
-TODO
+```
+./aclove [--help] [--version] --file PATH [--verbose] [--input OPT] [--output OPT]
+```
 
+where
+
++ `--help` prints the short help.
++ `--version` prints the version and other information.
++ `--file PATH` sets PATH as the path to the Aclove program to consider, contained in an
+  .acl file.
++ `--verbose` enables the verbose mode.
++ The options `OPT` control the display mode of the input and output expressions:
+    + `no-rules` drops the rules of the expression.
+    + `no-shadows` drops the shadows (or type) of the expression.
+    + `short-names` keeps only the last part of the variable and constant names of the
+      expression.
 
 
 ### Standard library
