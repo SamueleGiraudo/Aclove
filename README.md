@@ -1,4 +1,4 @@
-# AClove
+# Aclove
 `/\<<|_`
 
 A programming language based on combinatory logic and term rewrite systems, with an advanced
@@ -66,8 +66,8 @@ TODO
 
 ## Miscellaneous
 To get the syntax highlighting in the text editor `vim` for the Aclove language, put the
-file [acl.vim](Vim/syntax/cal.vim) at `~/.vim/syntax/acl.vim` and the file
-[acl.vim](Vim/ftdetect/cal.vim) at `~/.vim/fdetect/acl.vim`.
+file [acl.vim](Vim/syntax/acl.vim) at `~/.vim/syntax/acl.vim` and the file
+[acl.vim](Vim/ftdetect/acl.vim) at `~/.vim/fdetect/acl.vim`.
 
 
 ## Theoretical aspects
