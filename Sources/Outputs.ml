@@ -1,7 +1,7 @@
 (* Author: Samuele Giraudo
  * Creation: (mar. 2019, mar. 2020), feb. 2021
  * Modifications: (mar. 2020, may 2020), feb. 2021, dec. 2021, feb. 2022, may 2022,
- * oct. 2022, nov. 2022, dec. 2022, apr. 2023, jun. 2023, jul. 2023, aug. 2023
+ * oct. 2022, nov. 2022, dec. 2022, apr. 2023, jun. 2023, jul. 2023, aug. 2023, sep. 2023
  *)
 
 (* A type to specifies how to print an expression. *)
@@ -9,15 +9,15 @@ type print_options = {
     verbose: bool;
     with_rules: bool;
     with_shadows: bool;
-    with_full_constant_names: bool
+    with_full_names: bool
 }
 
 (* Returns the print option with the specified attributes. *)
-let build_print_options verbose with_rules with_shadows with_full_constant_names =
+let build_print_options verbose with_rules with_shadows with_full_names =
     {verbose = verbose;
     with_rules = with_rules;
     with_shadows = with_shadows;
-    with_full_constant_names = with_full_constant_names}
+    with_full_names = with_full_names}
 
 (* Prints the string str as an error. *)
 let print_error str =
@@ -48,8 +48,9 @@ let print_success str =
 let clean_constant_names e =
     let rec aux e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ |Expressions.Put _
-            |Expressions.Alias _ ->
+            |Expressions.Variable (info, v) ->
+                Expressions.Variable (info, Variables.keep_suffix v)
+            |Expressions.Self _ |Expressions.Put _ |Expressions.Alias _ ->
                 e
             |Expressions.Constant (info, c, rules) ->
                 let c' = Constants.keep_suffix c in
@@ -138,7 +139,7 @@ let to_buffered_string e =
 let print po e =
     let e1 = if po.with_rules then e else Properties.remove_rules e in
     let e2 = if po.with_shadows then e1 else Shadows.remove_shadows e1 in
-    let e3 = if po.with_full_constant_names then e2 else clean_constant_names e2 in
+    let e3 = if po.with_full_names then e2 else clean_constant_names e2 in
     if po.verbose then begin
         "## Characteristics:\n" |> Strings.indent 4 |> print_information_2;
         Statistics.compute e

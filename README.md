@@ -60,7 +60,7 @@ where
 
 + `--help` prints the short help.
 + `--version` prints the version and other information.
-+ `--file PATH` sets PATH as the path to the Aclove program to consider.
++ `--file PATH` sets `PATH` as the path to the Aclove program to consider.
 + `--verbose` enables the verbose mode.
 + The options `OPT` control the display mode of the input and output expressions:
     + `no-rules` drops the rules of the expression.

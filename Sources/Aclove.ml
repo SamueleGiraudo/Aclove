@@ -3,7 +3,7 @@
  * Modifications: mar. 2020, apr. 2020, may 2020, jun. 2020, dec. 2020, jan. 2021,
  * feb. 2021, nov. 2021, dec. 2021, feb. 2022, mar. 2022, may 2022, jun. 2022, aug. 2022,
  * sep. 2022, oct. 2022, nov. 2022, dec. 2022, jan. 2023, apr. 2023, jun. 2023, jul. 2023,
- * aug. 2023
+ * aug. 2023, sep. 2023
  *)
 
 (* Aclove - A programming language based on a mix of combinatory logic and general term
@@ -14,6 +14,14 @@
  * - Check if the management of paths is good. It seems that there are some problem related
  *   to the current paths and its simplifications, mainly when an included path starts with
  *   "..".
+ *
+ * - Consolidate names of variables and constant (possible collisions by using / in names.
+ *
+ * - Problems about the management of included files using symbolic links. Indeed, the
+ *   prefix added to the constants is the traversed path. This can provoke shadow errors
+ *   since some shadow constants which should be the same are considered as different when
+ *   a same file is used several times through different paths using symbolic links. This
+ *   problem should be resolved by transforming a path using links as a concrete path.
  *
  * - Optimize the printing of expressions by not printing some parenthesis. For instance,
  *   "'a 'b 'c" must be printed instead of "(('a 'b) 'c)".
@@ -32,13 +40,13 @@
  *
  * - Clean the code and add modules.
  *
- * - Consolidate names of variables and constant (possible collisions by using / in names.
- *
  * - Implement the environment model (instead of the substitution model).
  *
  * - Write an efficient script for compiling this project, not based on ocamlbuild.
  *
  * - Maybe write a lexer/parser by hand without using menhir and others.
+ *
+ * - Improve error messages (in particular for shadow errors.
  *
  *)
 
