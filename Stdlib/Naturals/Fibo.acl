@@ -1,7 +1,6 @@
 'fibo [
-    @ !Zero -> !Numbers/One;
-    @ !Numbers/One -> !Numbers/One;
-    @ (!Succ (!Succ %n)) -> !Add (@ (!Succ %n)) (@ %n)
+| !Zero # !Numbers/1
+| !Numbers/1 # !Numbers/1
+| (!Succ (!Succ %n)) # !Add (@ (!Succ %n)) (@ %n)
 ]
-: +!Naturals ^ +!Naturals
 

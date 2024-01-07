@@ -1,0 +1,4 @@
+'sub [
+    | %i1 %i2 # !Add %i1 (!Opposite %i2)
+]
+

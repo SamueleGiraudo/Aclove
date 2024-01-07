@@ -1,7 +1,6 @@
 'div [
-    @ !Zero (!Succ %n) -> !Zero;
-    @ (!Succ %n1) (!Succ %n2) ->
-        !../Booleans/If (!Leq %n2 %n1) (!Succ (@ (!Sub %n1 %n2) (!Succ %n2))) !Zero
+| !Zero (!Succ %n) # !Zero
+| (!Succ %n1) (!Succ %n2) #
+    !../Booleans/If (!Leq %n2 %n1) (!Succ (@ (!Sub %n1 %n2) (!Succ %n2))) !Zero
 ]
-: +!Naturals ^ +!Naturals ^ +!Naturals
 

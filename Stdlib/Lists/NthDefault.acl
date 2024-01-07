@@ -1,0 +1,6 @@
+'nth_default [
+| !Empty %default %n # %default
+| (!Cell %x %lst) %default !../Naturals/Zero # %x
+| (!Cell %x %lst) %default (!../Naturals/Succ %n) # @ %lst %default %n
+]
+

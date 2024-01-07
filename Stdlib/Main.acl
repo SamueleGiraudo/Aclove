@@ -1,0 +1,572 @@
+becard = !Combinators/Becard .
+black_bird = !Combinators/BlackBird .
+blue_bird = !Combinators/BlueBird .
+bunting = !Combinators/Bunting .
+cardinal = !Combinators/Cardinal .
+finch = !Combinators/Finch .
+idiot = !Combinators/Idiot .
+kestrel = !Combinators/Kestrel .
+owl = !Combinators/Owl .
+starling = !Combinators/Starling .
+thrush = !Combinators/Thrush .
+vireo = !Combinators/Vireo .
+
+id = !Functions/Id .
+const = !Functions/Const .
+flip = !Functions/Flip .
+compose = !Functions/Compose .
+compose2 = !Functions/Compose2 .
+pipe = !Functions/Pipe .
+negate = !Functions/Negate .
+iter = !Functions/Iter .
+leq_to_eq = !Functions/LeqToEq .
+
+bools = !Booleans/Booleans .
+true = !Booleans/True .
+false = !Booleans/False .
+not = !Booleans/Not .
+or = !Booleans/Or .
+and = !Booleans/And .
+eq_bool = !Booleans/Eq .
+imp = !Booleans/Imp .
+if = !Booleans/If .
+
+pairs = !Products/Pairs .
+triples = !Products/Triples .
+pair = !Products/Pair .
+triple = !Products/Triple .
+fst = !Products/Fst .
+snd = !Products/Snd .
+compute = !Products/Compute .
+diagonal = !Products/Diagonal .
+transpose = !Products/Transpose .
+pair_map = !Products/Map .
+
+nats = !Naturals/Naturals .
+0 = !Naturals/Zero .
+succ = !Naturals/Succ .
+1 = !Naturals/Numbers/1 .
+2 = !Naturals/Numbers/2 .
+3 = !Naturals/Numbers/3 .
+4 = !Naturals/Numbers/4 .
+5 = !Naturals/Numbers/5 .
+6 = !Naturals/Numbers/6 .
+7 = !Naturals/Numbers/7 .
+8 = !Naturals/Numbers/8 .
+9 = !Naturals/Numbers/9 .
+10 = !Naturals/Numbers/10 .
+11 = !Naturals/Numbers/11 .
+12 = !Naturals/Numbers/12 .
+pred = !Naturals/Pred .
+leq = !Naturals/Leq .
+geq = !Naturals/Geq .
+eq_nat = !Naturals/Eq .
+add = !Naturals/Add .
+sub = !Naturals/Sub .
+mul = !Naturals/Mul .
+div = !Naturals/Div .
+mod = !Naturals/Mod .
+pow = !Naturals/Pow .
+gcd = !Naturals/Gcd .
+lcm = !Naturals/Lcm .
+min = !Naturals/Min .
+max = !Naturals/Max .
+is_even = !Naturals/IsEven .
+is_odd = !Naturals/IsOdd .
+fact = !Naturals/Fact .
+fibo = !Naturals/Fibo .
+binom = !Naturals/Binom .
+catalan = !Naturals/Catalan .
+ackermann = !Naturals/Ackermann .
+
+lists = !Lists/Lists .
+empty = !Lists/Empty .
+cell = !Lists/Cell .
+only = !Lists/Only .
+hd = !Lists/Hd .
+tl = !Lists/Tl .
+is_empty = !Lists/IsEmpty .
+push_end = !Lists/PushEnd .
+len = !Lists/Len .
+nth = !Lists/Nth .
+reverse = !Lists/Reverse .
+append = !Lists/Append .
+flatten = !Lists/Flatten .
+init = !Lists/Init .
+range = !Lists/Range .
+combine = !Lists/Combine .
+map = !Lists/Map .
+map_2 = !Lists/Map2 .
+product = !Lists/Product .
+mem = !Lists/Mem .
+grow = !Lists/Grow .
+mapi = !Lists/Mapi .
+filter = !Lists/Filter .
+find = !Lists/Find .
+for_all = !Lists/ForAll .
+for_all_2 = !Lists/ForAll2 .
+eq_list = !Lists/Eq .
+exists = !Lists/Exists .
+fold_left = !Lists/FoldLeft .
+fold_right = !Lists/FoldRight .
+simplify_runs = !Lists/SimplifyRuns .
+merge = !Lists/Merge .
+sort = !Lists/Sort .
+sort_uniq = !Lists/SortUniq .
+partition = !Lists/Partition .
+split = !Lists/Split .
+
+options = !Options/Options .
+n1 = !Options/None .
+some = !Options/Some .
+is_n1 = !Options/IsNone .
+is_some = !Options/IsSome .
+get = !Options/Get .
+get_default = !Options/GetDefault .
+option_map = !Options/Map .
+bind = !Options/Bind .
+
+maps = !Maps/Maps .
+empty_map = !Maps/Empty .
+singleton = !Maps/Singleton .
+image = !Maps/Image .
+keys = !Maps/Keys .
+values = !Maps/Values .
+map_from_function = !Maps/FromFunction .
+preimages = !Maps/Preimages .
+
+{
+bits = !BitSequences/Bits/Bits .
+bit_sequences = !BitSequences/BitSequences .
+empty_bit_sequence = !BitSequences/Empty .
+bit_0 = !BitSequences/Bits/Bit0 .
+bit_1 = !BitSequences/Bits/Bit1 .
+push_0 = !BitSequences/Push0 .
+push_1 = !BitSequences/Push1 .
+is_empty = !BitSequences/IsEmpty .
+eq_bit = !BitSequences/Bits/Eq .
+eq_bit_sequence = !BitSequences/Eq .
+append = !BitSequences/Append .
+reverse = !BitSequences/Reverse .
+not_bit_sequence = !BitSequences/Not .
+or_bit_sequence = !BitSequences/Or .
+and_bit_sequence = !BitSequences/And .
+xor_bit_sequence = !BitSequences/Xor .
+align = !BitSequences/Align .
+shl = !BitSequences/Shl .
+shr = !BitSequences/Shr .
+rol = !BitSequences/Rol .
+ror = !BitSequences/Ror .
+nibble_0000 = !BitSequences/Nibbles/0000 .
+nibble_0001 = !BitSequences/Nibbles/0001 .
+nibble_0010 = !BitSequences/Nibbles/0010 .
+nibble_0011 = !BitSequences/Nibbles/0011 .
+nibble_0100 = !BitSequences/Nibbles/0100 .
+nibble_0101 = !BitSequences/Nibbles/0101 .
+nibble_0110 = !BitSequences/Nibbles/0110 .
+nibble_0111 = !BitSequences/Nibbles/0111 .
+nibble_1000 = !BitSequences/Nibbles/1000 .
+nibble_1001 = !BitSequences/Nibbles/1001 .
+nibble_1010 = !BitSequences/Nibbles/1010 .
+nibble_1011 = !BitSequences/Nibbles/1011 .
+nibble_1100 = !BitSequences/Nibbles/1100 .
+nibble_1101 = !BitSequences/Nibbles/1101 .
+nibble_1110 = !BitSequences/Nibbles/1110 .
+nibble_1111 = !BitSequences/Nibbles/1111 .
+}
+
+{
+integers = !.tegers/Integers .
+negative = !.tegers/Negative .
+0_int = !.tegers/0 .
+1_int = !.tegers/1 .
+2_int = !.tegers/Numbers/2 .
+is_0_int = !.tegers/Is0 .
+opposite_int = !.tegers/Opposite .
+incr_int = !.tegers/Incr .
+decr_int = !.tegers/Decr .
+add_int = !.tegers/Add .
+sub_int = !.tegers/Sub .
+mul_int = !.tegers/Mul .
+}
+
+
+{true >pair> 1 >pair> false >pair> 3}
+
+
+{range 0}
+
+{range 3}
+{map not empty}
+
+{
+(init 10 fibo)
+}
+
+(if
+    false
+    true
+    (eq_bool (and (or (not true) (not false)) (or true false))
+        (not (imp false true))))
+>pair>
+true
+>pair>
+(if true false false)
+>pair>
+(if (or (eq_nat 8 7) (leq 2 3)) 3 7)
+>pair>
+(eq_bool true false)
+>pair>
+(sub 10 3)
+>pair>
+(sub 3 10)
+>pair>
+(mod 10 5)
+>pair>
+(pow 2 7)
+>pair>
+(gcd 10 8)
+>pair>
+(lcm 10 8)
+>pair>
+(leq (sub 4 3) (add 3 5))
+>pair>
+(mul 5 5)
+>pair>
+(div 6 3)
+>pair>
+(pred (succ (succ 0)))
+>pair>
+(mod (add 5 5) (add 5 5))
+>pair>
+(eq_bool false true)
+>pair>
+(not false)
+>pair>
+(mul 3 4)
+>pair>
+(eq_nat 5 5)
+>pair>
+(fibo (mul 3 5))
+>pair>
+(fibo (mul 3 5))
+>pair>
+(fibo (mul 3 5))
+>pair>
+(fibo (mul 3 5))
+>pair>
+(min 3 5)
+>pair>
+(max 3 5)
+>pair>
+(binom 4 2)
+>pair>
+(ackermann 2 2)
+>pair>
+(catalan 5)
+>pair>
+(leq 5 10)
+>pair>
+(geq 5 9)
+>pair>
+(is_even 7)
+>pair>
+(is_odd 7)
+>pair>
+(iter 3 (add 2) 0)
+>pair>
+(cell true (cell false empty))
+>pair>
+(range 10)
+>pair>
+(init 10 fibo)
+>pair>
+(init 6 (binom 5))
+>pair>
+(product (init 6 fibo) (init 4 fact))
+>pair>
+(merge leq (cell 2 (cell 1 empty)) (cell 10 empty))
+>pair>
+(sort leq (cell 2 (cell 1 empty)))
+>pair>
+(sort leq (init 10 (binom 9)))
+>pair>
+(sort_uniq leq (init 10 (binom 9)))
+>pair>
+false
+>pair>
+(sort_uniq leq (init (mul 10 2) (binom 10)))
+>pair>
+(id (id map id (range 3)))
+>pair>
+(sort_uniq leq (init (mul 1 3) (binom (add 1 3))))
+>pair>
+(pair (fibo (add 10 6)) (fibo (add 10 6)))
+>pair>
+partition is_even (init (add 2 10) fibo)
+>pair>
+split (init 10 (diagonal))
+>pair>
+fold_left add 0 (init (add 1 7) fibo)
+>pair>
+init (add 4 3) (pow 2)
+>pair>
+map_from_function fibo (range 12)
+>pair>
+(range 6 >pipe> map fact)
+>pair>
+fold_left add 0 (map pred (filter is_even (map succ (init 8 fact))))
+
+
+{if true (fact 3) (fact (mul 10 10))}
+{if false (fact (mul 10 10)) (fact 3)}
+{fact 7}
+
+{
+x = 1 >pair> 2 .
+
+(
+x
+>pair>
+(init 6 catalan)
+>pair>
+(fact 3)
+>pair>
+(binom 5 2)
+)
+}
+
+{
+}
+
+{
+x = fibo (add 10 9) .
+x
+}
+
+{pair x (pair x x)}
+
+
+
+
+{add 3 2}
+
+{
+fibo (add 10 10)
+}
+
+{
+pair
+(fibo (add 10 6))
+(fibo (add 10 6))
+}
+
+
+
+
+
+{
+{
+lst = cell 1 (cell 5 (cell 2 empty)) .
+lst2 = cell 5 (cell 10 empty) .
+}
+{hd lst}
+{tl lst}
+{push_end 10 lst}
+{len lst}
+{nth lst 1}
+{reverse lst}
+{lst}
+{append lst lst2}
+{flatten (cell lst (cell lst2 empty))}
+{fst (pair lst lst2)}
+
+{snd (pair true 3)}
+
+{tr = triple 1 2 3 .}
+{snd tr}
+
+{starling}
+{starling %x1 %x2 %x3}
+{blue_bird %f %g %x}
+{pair false (pair 1 2)}
+
+{only 2}
+
+{starling mul fact 4}
+
+{triple 1 1 %x}
+
+{lst3 = cell true (cell false (cell false empty)) .}
+{combine lst lst3}
+{map fact lst}
+{product lst3 (product (product lst lst3) lst2)}
+{mem eq_nat 5 lst}
+{init (mul 2 3) fibo}
+{range 10}
+{grow (flip nth 2) (grow hd lst3)}
+
+{mapi mul (range 10)}
+
+{init 8 fact}
+
+{filter is_odd (range (mul 2 6))}
+
+{find (flip geq (mul 10 10)) (init 6 fact)}
+
+{for_all is_even (range 0)}
+{exists is_even (range 1)}
+
+{fold_left add 0 (init 7 fibo)}
+{fold_right sub (init 7 fibo) 0}
+{fold_left sub 0 (init 7 fibo)}
+
+{
+lst4 = .it (mul 4 2) (compose ((flip mod) 6) fibo) .
+lst5 = sort leq lst4 .
+lst6 = sort_uniq leq lst4 .
+(triple lst4 lst5 lst6)
+}
+
+{nibble_0000}
+
+{
+eq_bit_sequence +
+    (append nibble_1000 nibble_0100) +
+    (append nibble_1000 nibble_0110)
+}
+
+{
+eq_bit_sequence +
+    (append (append nibble_1000 nibble_0110) nibble_0100) +
+    nibble_0100
+}
+{
+lst1 = range 10 .
+lst2 = reverse (range 10) .
+pair +
+    (eq_list eq_nat lst1 lst2) +
+    (eq_list eq_nat (range 3) (range 3))
+}
+{
+eq_list eq_nat (range 0) (range 1)
+}
+{
+not_bit_sequence nibble_1000
+}
+
+{map_2 mul (init 5 fact) (range 5)}
+
+{align nibble_1000 empty_bit_sequence}
+{align (append nibble_0100 nibble_1000) nibble_1011}
+{or_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+{and_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+
+{fibo (mul 2 3)}
+{succ (snd (pair true 1))}
+{(id range) (id 10)}
+
+{shl nibble_1011}
+{shr nibble_1011}
+{rol nibble_1011}
+{ror nibble_1011}
+
+{singleton 4 true}
+
+{map (compose range fibo) (range 9)}
+
+{map fibo (range (mul 5 3))}
+{fibo (mul 5 4)}
+{add (mul 4 7) 2}
+
+{pair (fact 6) (fact 7)}
+
+{n = (mul 2 1) .}
+{map (binom n) (range (succ n))}
+{map (mul 5) (range 2)}
+{triple triple triple triple}
+{fold_left}
+
+{xor_bit_sequence nibble_0100 (append nibble_1011 nibble_0110)}
+
+{is_0_int 0_int}
+{opposite_int 2_int}
+
+{incr_bit_sequence nibble_1111}
+{decr_bit_sequence nibble_0101}
+{decr_bit_sequence (push_1 empty_bit_sequence)}
+{incr_int (pair true nibble_1011)}
+{incr_int (pair false nibble_1011)}
+{incr_int (pair false (push_1 empty_bit_sequence))}
+{decr_int (pair false nibble_1011)}
+{decr_int (pair true nibble_1011)}
+{decr_int (pair true empty_bit_sequence)}
+{add_bit_sequences nibble_1101 nibble_1011}
+{sub_bit_sequences nibble_0101 nibble_0100}
+{sub_bit_sequences nibble_0100 nibble_0101}
+{decr_bit_sequence (push_0 empty_bit_sequence)}
+{decr_bit_sequence empty_bit_sequence}
+{sub_bit_sequences (push_0 empty) (push_1 empty)}
+{sub_bit_sequences empty empty}
+{decr_bit_sequence (push_0 empty)}
+
+{decr_bit_sequence (push_0 (sub_bit_sequences empty empty))}
+{sub_bit_sequences empty empty}
+{decr_bit_sequence (push_0 empty)}
+
+{push_1_int 2_int}
+
+{add_positive 1_int (add_positive (add_positive 2_int 2_int) 2_int)}
+
+{
+add_positive +
+(add_positive
+    (add_positive
+        1_int
+        (add_positive (add_positive 2_int 2_int) 2_int))
+    (add_positive 1_int 1_int))
+(add_positive 2_int 1_int)
+}
+
+{add_positive (pair true nibble_1111) (pair true nibble_1111)}
+
+{add_positive 2_int}
+{add_positive}
+
+{pair (id 1) (id false)}
+{snd (pair 1 true)}
+
+{add_int (add_int 1_int 2_int) 2_int}
+{sub_int (sub_int 1_int 2_int) 2_int}
+{sub_int 1_int 2_int}
+{sub_int}
+
+{
+mul_int (mul_int 2_int 2_int) (add_int 2_int 1_int)
+}
+
+{
+fact_int +
+    (mul_int +
+        2_int +
+        (mul_int +
+            2_int +
+            (mul_int +
+                2_int +
+                (add_int 2_int 2_int)
+            )
+        )
+    )
+}
+
+
+{init 10 fibo}
+
+{
+u1 =
+    not_bit_sequence (append nibble_0101 (append nibble_0101 nibble_1100))
+in
+u2 = append nibble_1010 nibble_1100 .
+xor_bit_sequence u1 u2
+}
+}

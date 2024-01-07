@@ -1,0 +1,84 @@
+{
+    Author: Samuele Giraudo
+    Creation: feb. 2022
+    Modifications: feb. 2022, may 2022, aug. 2022, sep. 2022
+
+    Binary trees.
+
+    Uses App, Pair, Bool, Nat, List.
+}
+
+prefix binary_tree in
+
+constant ''binary_trees : %%%1 | %%%2 in
+
+constant 'leaf : | ''binary_trees[%%1] in
+constant 'node : %%1 ''binary_trees[%%1] ''binary_trees[%%1] | ''binary_trees[%%1] in
+
+constant 'nb_leaves : ''binary_trees[%%1] | ''nat.nats[] in
+constant 'height : ''binary_trees[%%1] | ''nat.nats[] in
+constant 'infix_traversal : ''binary_trees[%%1] | ''list.lists[%%1] in
+constant 'insert_bst :
+    ''app.m2[%%1; %%1; ''bool.bools[]] %%1 ''binary_trees[%%1] | ''binary_trees[%%1] in
+constant 'mem_bst :
+    ''app.m2[%%1; %%1; ''bool.bools[]] %%1 ''binary_trees[%%1] | ''bool.bools[] in
+{
+constant 'generate : [%1; ''nat.nats[]] -> ''lists[''binary_trees[%1]] in
+}
+rule 'nb_leaves['leaf[]] -> 'nat.one[] in
+rule 'nb_leaves['node[%2; %3; %4]] -> 'nat.add['nb_leaves[%3]; 'nb_leaves[%4]] in
+
+rule 'height['leaf[]] -> 'nat.zero[] in
+rule 'height['node[%2; %3; %4]] ->
+    let h_left = 'height[%3] in
+    let h_right = 'height[%4] in
+    'nat.succ['nat.max[h_left; h_right]] in
+
+rule 'infix_traversal['leaf[]] -> 'list.empty[] in
+rule 'infix_traversal['node[%2; %3; %4]] ->
+    let res_1 = 'infix_traversal[%3] in
+    let res_2 = 'infix_traversal[%4] in
+    'list.append['list.push_end[%2; res_1]; res_2] in
+
+rule 'insert_bst[%2; %3; 'leaf[]] ->
+    'node[%3; 'leaf[]; 'leaf[]] in
+rule 'insert_bst[%2; %3; 'node[%4; %5; %6]] ->
+    'bool.if['app.a2[%2; %3; %4];
+        let t = 'insert_bst[%2; %3; %5] in 'node[%4; t; %6];
+        let t = 'insert_bst[%2; %3; %6] in 'node[%4; %5; t]]
+in
+
+rule 'mem_bst[%2; %3; 'leaf[]] -> 'bool.false[] in
+rule 'mem_bst[%2; %3; 'node[%4; %5; %6]] ->
+    'bool.if[
+        'bool.and['app.a2[%2; %3; %4]; 'app.a2[%2; %4; %3]];
+        'bool.true[];
+        'bool.if[
+            'app.a2[%2; %3; %4];
+            'mem_bst[%2; %3; %5];
+            'mem_bst[%2; %3; %6]
+        ]
+     ]
+in
+
+{
+rule 'app.a1['generate[%2; %3]; %4] -> 'generate[%2; %4] in
+rule 'generate[%2; 'nat.zero[]] -> 'list.only['leaf[]] in
+constant 'generate_aux_1 % in
+rule 'generate_aux_1['pair[%2; %3]] -> 'list.product[%2; %3] in
+rule 'app.a1['generate_aux_1[%2]; %3] -> 'generate_aux_1[%3] in
+constant 'generate_aux_2 % % in
+rule 'generate_aux_2[%2; 'pair[%3; %4]] -> 'node[%2; %3; %4] in
+rule 'app.a1['generate_aux_2[%2; %3]; %4] ->
+    'generate_aux_2[%2; %4] in
+rule 'generate[%2; 'nat.succ[%3]] ->
+    let tmp_1 = 'list.init['nat.succ[%3]; 'generate[%2; %3]] in
+    let tmp_2 = 'list.reverse[tmp_1] in
+    let tmp_3 = 'list.combine[tmp_1; tmp_2] in
+    let tmp_4 = 'list.map['generate_aux_1[%4]; tmp_3] in
+    let tmp_5 = 'list.flatten[tmp_4] in
+    'list.map['generate_aux_2[%2; %4]; tmp_5] in
+}
+
+%1
+

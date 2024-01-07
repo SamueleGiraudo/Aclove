@@ -1,0 +1,5 @@
+'last [
+    | (%x <!Cell< !Empty) # %x
+    | (%x1 <!Cell< %x2 <!Cell< %lst) # @ (%x2 <!Cell< %lst)
+]
+

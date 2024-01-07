@@ -1,2 +1,2 @@
-'pairs : +%e1 ^ +%e2 ^ +%_
+'pairs : %e1 ^ %e2 ^ !../Types/Types
 

@@ -1,2 +1,3 @@
-'lists : +%e ^ +%_
+{'lists : !../Types/Types ^ !../Types/Types}
+'lists : %e ^ !../Types/Types
 

@@ -1,0 +1,165 @@
+{
+    Authbool_or: Samuele Giraudo
+    Creation: feb. 2022
+    Modifications: feb. 2022, may 2022, aug. 2022, sep. 2022
+
+    Integers.
+
+    Uses Bool, Bits.
+}
+
+prefix int in
+
+constant ''ints : | %%%1 in
+
+constant 'pos : ''bits.bits[] | ''ints[] in
+constant 'neg : ''bits.bits[] | ''ints[] in
+
+constant 'zero : | ''ints[] in
+rule 'zero[] -> 'pos['bits.empty[]] in
+
+constant 'one : | ''ints[] in
+rule 'one[] -> 'pos['bits.bit_1['bits.empty[]]] in
+
+constant 'two : | ''ints[] in
+rule 'two[] -> 'pos['bits.bit_0['bits.bit_1['bits.empty[]]]] in
+
+constant 'three : | ''ints[] in
+rule 'three[] -> 'pos['bits.bit_1['bits.bit_1['bits.empty[]]]] in
+
+constant 'four : | ''ints[] in
+rule 'four[] -> 'pos['bits.bit_0['bits.bit_0['bits.bit_1['bits.empty[]]]]] in
+
+constant 'five : | ''ints[] in
+rule 'five[] -> 'pos['bits.bit_1['bits.bit_0['bits.bit_1['bits.empty[]]]]] in
+
+constant 'six : | ''ints[] in
+rule 'six[] -> 'pos['bits.bit_0['bits.bit_1['bits.bit_1['bits.empty[]]]]] in
+
+constant 'seven : | ''ints[] in
+rule 'seven[] -> 'pos['bits.bit_1['bits.bit_1['bits.bit_1['bits.empty[]]]]] in
+
+constant 'eight : | ''ints[] in
+rule 'eight[] -> 'pos['bits.bit_0['bits.bit_0['bits.bit_0['bits.bit_1['bits.empty[]]]]]] in
+
+constant 'nine : | ''ints[] in
+rule 'nine[] -> 'pos['bits.bit_1['bits.bit_0['bits.bit_0['bits.bit_1['bits.empty[]]]]]] in
+
+constant 'ten : | ''ints[] in
+rule 'ten[] -> 'pos['bits.bit_0['bits.bit_1['bits.bit_0['bits.bit_1['bits.empty[]]]]]] in
+
+constant 'eleven : | ''ints[] in
+rule 'eleven[] -> 'pos['bits.bit_1['bits.bit_1['bits.bit_0['bits.bit_1['bits.empty[]]]]]] in
+
+constant 'twelve : | ''ints[] in
+rule 'twelve[] -> 'pos['bits.bit_0['bits.bit_0['bits.bit_1['bits.bit_1['bits.empty[]]]]]] in
+
+constant 'minus_one : | ''ints[] in
+rule 'minus_one[] -> 'neg['bits.bit_1['bits.empty[]]] in
+
+constant 'push_0 : ''ints[] | ''ints[] in
+rule 'push_0['pos[%1]] -> 'pos['bits.bit_0[%1]] in
+rule 'push_0['neg[%1]] -> 'neg['bits.bit_0[%1]] in
+
+constant 'push_1 : ''ints[] | ''ints[] in
+rule 'push_1['pos[%1]] -> 'pos['bits.bit_1[%1]] in
+rule 'push_1['neg[%1]] -> 'neg['bits.bit_1[%1]] in
+
+constant 'is_zero : ''ints[] | ''bool.bools[] in
+rule 'is_zero['pos[%1]] -> 'bits.is_empty[%1] in
+rule 'is_zero['neg[%1]] -> 'bits.is_empty[%1] in
+
+constant 'opposite : ''ints[] | ''ints[] in
+rule 'opposite['pos[%1]] -> 'neg[%1] in
+rule 'opposite['neg[%1]] -> 'pos[%1] in
+
+constant 'incr : ''ints[] | ''ints[] in
+constant 'incr_pos : ''ints[] | ''ints[] in
+constant 'decr_pos : ''ints[] | ''ints[] in
+constant 'incr_neg : ''ints[] | ''ints[] in
+rule 'incr_pos['zero[]] -> 'one[] in
+rule 'incr_pos['pos['bits.bit_0[%1]]] -> 'pos['bits.bit_1[%1]] in
+rule 'incr_pos['pos['bits.bit_1[%1]]] -> 'push_0['incr_pos['pos[%1]]] in
+
+rule 'decr_pos['zero[]] -> 'minus_one[] in
+rule 'decr_pos['one[]] -> 'zero[] in
+rule 'decr_pos['pos['bits.bit_0[%1]]] -> 'push_1['decr_pos['pos[%1]]] in
+rule 'decr_pos['pos['bits.bit_1['bits.bit_0[%1]]]] -> 'pos['bits.bit_0['bits.bit_0[%1]]] in
+rule 'decr_pos['pos['bits.bit_1['bits.bit_1[%1]]]] -> 'pos['bits.bit_0['bits.bit_1[%1]]] in
+
+rule 'incr_neg['neg[%1]] -> 'opposite['decr_pos['pos[%1]]] in
+rule 'incr['pos[%1]] -> 'incr_pos['pos[%1]] in
+rule 'incr['neg[%1]] -> 'incr_neg['neg[%1]] in
+
+constant 'decr : ''ints[] | ''ints[] in
+constant 'decr_neg : ''ints[] | ''ints[] in
+rule 'decr_neg['neg[%1]] -> 'opposite['incr_pos['pos[%1]]] in
+rule 'decr['pos[%1]] -> 'decr_pos['pos[%1]] in
+rule 'decr['neg[%1]] -> 'decr_neg['neg[%1]] in
+
+constant 'add : ''ints[] ''ints[] | ''ints[] in
+constant 'add_pos : ''ints[] ''ints[] | ''ints[] in
+constant 'sub_pos : ''ints[] ''ints[] | ''ints[] in
+
+rule 'add_pos['zero[]; %1] -> %1 in
+rule 'add_pos[%1; 'zero[]] -> %1 in
+rule 'add_pos['pos['bits.bit_0[%1]]; 'pos['bits.bit_0[%2]]] ->
+    'push_0['add_pos['pos[%1]; 'pos[%2]]] in
+let tmp = 'push_1['add_pos['pos[%1]; 'pos[%2]]] in
+rule 'add_pos['pos['bits.bit_0[%1]]; 'pos['bits.bit_1[%2]]] -> tmp in
+rule 'add_pos['pos['bits.bit_1[%1]]; 'pos['bits.bit_0[%2]]] -> tmp in
+rule 'add_pos['pos['bits.bit_1[%1]]; 'pos['bits.bit_1[%2]]] ->
+    'push_0['incr['add_pos['pos[%1]; 'pos[%2]]]] in
+
+rule 'sub_pos['zero[]; %1] -> 'opposite[%1] in
+rule 'sub_pos[%1; 'zero[]] -> %1 in
+rule 'sub_pos['pos['bits.bit_0[%1]]; 'pos['bits.bit_0[%2]]] ->
+    let i = 'sub_pos['pos[%1]; 'pos[%2]] in
+    'bool.if['is_zero[i]; 'zero[]; 'push_0[i]] in
+rule 'sub_pos['pos['bits.bit_0[%1]]; 'pos['bits.bit_1[%2]]] ->
+    'decr['push_0['sub_pos['pos[%1]; 'pos[%2]]]] in
+rule 'sub_pos['pos['bits.bit_1[%1]]; 'pos['bits.bit_0[%2]]] ->
+    'incr['push_0['sub_pos['pos[%1]; 'pos[%2]]]] in
+rule 'sub_pos['pos['bits.bit_1[%1]]; 'pos['bits.bit_1[%2]]] ->
+    let i = 'sub_pos['pos[%1]; 'pos[%2]] in
+    'bool.if['is_zero[i]; 'zero[]; 'push_0[i]] in
+
+rule 'add['pos[%1]; 'pos[%2]] -> 'add_pos['pos[%1]; 'pos[%2]] in
+rule 'add['pos[%1]; 'neg[%2]] -> 'sub_pos['pos[%1]; 'pos[%2]] in
+rule 'add['neg[%1]; 'pos[%2]] -> 'sub_pos['pos[%2]; 'pos[%1]] in
+rule 'add['neg[%1]; 'neg[%2]] -> 'opposite['add_pos['pos[%1]; 'pos[%2]]] in
+
+constant 'sub : ''ints[] ''ints[] | ''ints[] in
+rule 'sub[%1; %2] -> 'add[%1; 'opposite[%2]] in
+
+constant 'mul : ''ints[] ''ints[] | ''ints[] in
+constant 'mul_pos : ''ints[] ''ints[] | ''ints[] in
+rule 'mul_pos['zero[]; %1] -> 'zero[] in
+rule 'mul_pos['pos['bits.bit_0[%1]]; %2] -> 'push_0['mul_pos['pos[%1]; %2]] in
+rule 'mul_pos['pos['bits.bit_1[%1]]; %2] -> 'add_pos[%2; 'push_0['mul_pos['pos[%1]; %2]]] in
+let tmp = 'mul_pos['pos[%1]; 'pos[%2]] in
+rule 'mul['pos[%1]; 'pos[%2]] -> tmp in
+rule 'mul['pos[%1]; 'neg[%2]] -> 'opposite[tmp] in
+rule 'mul['neg[%1]; 'pos[%2]] -> 'opposite[tmp] in
+rule 'mul['neg[%1]; 'neg[%2]] -> tmp in
+
+constant 'fact : ''ints[] | ''ints[] in
+rule 'fact['zero[]] -> 'one[] in
+let i0 = 'pos['bits.bit_0[%1]] in
+let i1 = 'pos['bits.bit_1[%1]] in
+rule 'fact[i0] -> 'mul[i0; 'fact['decr[i0]]] in
+rule 'fact[i1] -> 'mul[i1; 'fact['decr[i1]]] in
+
+constant 'is_positive : ''ints[] | ''bool.bools[] in
+rule 'is_positive['pos[%1]] -> 'bool.true[] in
+rule 'is_positive['neg[%1]] -> 'bool.false[] in
+
+constant 'is_negative : ''ints[] | ''bool.bools[] in
+rule 'is_negative['pos[%1]] -> 'bool.false[] in
+rule 'is_negative['neg[%1]] -> 'bool.true[] in
+
+constant 'leq : ''ints[] ''ints[] | ''bool.bools[] in
+rule 'leq[%1; %2] -> 'is_positive['sub[%2; %1]] in
+
+%1
+

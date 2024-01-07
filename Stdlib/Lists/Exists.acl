@@ -1,12 +1,4 @@
-let lists = put Lists in
-let for_all = put ForAll in
-let booleans = put ../Booleans/Booleans in
-let negate = put ../Functions/Negate in
-let not = put ../Booleans/Not in
-let compose = put ../Functions/Compose in
-
 'exists [
-    @ %f %lst -> not (for_all (negate %f) %lst)
+| %f %lst # !../Booleans/Not (!ForAll (!../Functions/Negate %f) %lst)
 ]
-: (+%e ^ +booleans) ^ +lists +%e ^ +booleans
 

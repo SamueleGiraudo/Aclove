@@ -1,6 +1,6 @@
 (* Author: Samuele Giraudo
  * Creation: (may 2020), jul. 2023
- * Modifications: jul. 2023
+ * Modifications: jul. 2023, jan. 2024
  *)
 
 (* Management of arguments.
@@ -81,4 +81,24 @@ let option_has_value opt v =
     assert (is_short_option_name opt || is_long_option_name opt);
     assert (is_value_name v);
     List.mem v (option_values opt)
+
+(* Returns an option on the value of the single option opt if its exists. Returns None
+ * otherwise. *)
+let option_value opt =
+    assert (is_short_option_name opt || is_long_option_name opt);
+    match option_values opt with
+        |[v] -> Some v
+        |_ -> None
+
+(* Returns an option on the single value of the option opt if this value is an integer
+ * between bound_min and bound_max. Returns None in all other cases. *)
+let bounded_integer_option_value bound_min bound_max opt =
+    assert (is_short_option_name opt || is_long_option_name opt);
+    match option_value opt with
+        |Some v -> begin
+            match int_of_string_opt v with
+                |Some i as res when bound_min <= i && i <= bound_max -> res
+                |_ -> None
+        end
+        |_ -> None
 

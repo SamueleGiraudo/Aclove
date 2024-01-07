@@ -1,8 +1,7 @@
 'eq [
-    @ !Zero !Zero -> !../Booleans/True;
-    @ !Zero (!Succ %n) -> !../Booleans/False;
-    @ (!Succ %n) !Zero -> !../Booleans/False;
-    @ (!Succ %n1) (!Succ %n2) -> @ %n1 %n2
+| !Zero !Zero # !../Booleans/True
+| !Zero (!Succ %n) # !../Booleans/False
+| (!Succ %n) !Zero # !../Booleans/False
+| (!Succ %n1) (!Succ %n2) # @ %n1 %n2
 ]
-: +!Naturals ^ +!Naturals ^ +!../Booleans/Booleans
 

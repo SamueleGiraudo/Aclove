@@ -1,8 +1,4 @@
-let pairs = put Pairs in
-let pair = put Pair in
-
 'map [
-    @ %f1 %f2 (pair %x1 %x2) -> pair (%f1 %x1) (%f2 %x2)
+    | %f1 %f2 (!Pair %x1 %x2) # !Pair (%f1 %x1) (%f2 %x2)
 ]
-: (+%e1 ^ +%e3) ^ (+%e2 ^ +%e4) ^ +pairs +%e1 +%e2 ^ +pairs +%e3 +%e4
 

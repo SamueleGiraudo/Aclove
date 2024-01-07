@@ -1,0 +1,8 @@
+let pair = put ../../Products/Pair in
+let true = put ../../Booleans/True in
+let empty = put ../../BitSequences/Empty in
+let b0 = put ../../BitSequences/Push0 in
+let b1 = put ../../BitSequences/Push1 in
+
+pair + true + (b0 + (b1 + empty))
+

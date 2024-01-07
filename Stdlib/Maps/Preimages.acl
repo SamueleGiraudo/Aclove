@@ -1,27 +1,11 @@
-let maps = put Maps in
-let empty = put Empty in
-
-let booleans = put ../Booleans/Booleans in
-
-let lists = put ../Lists/Lists in
-let cell = put ../Lists/Cell in
-let filter = put ../Lists/Filter in
-let map = put ../Lists/Map in
-
-let pairs = put ../Products/Pairs in
-let fst = put ../Products/Fst in
-let snd = put ../Products/Snd in
-
 'preimages [
-    @ %eq %x %lst ->
-        let f =
+    | %eq %x %lst #
+        f =
             'f [
-                @ %eq %x %pair -> %eq %x (snd %pair)
+            | %eq %x %pair # %eq %x (!../Products/Snd %pair)
             ]
-            : (+%2 ^ +%2 ^ +booleans) ^ +%2 ^ +pairs +%1 +%2 ^ +booleans
-        in
-        let lst_pairs = filter (f %eq %x) %lst in
-        map fst lst_pairs
+        .
+        lst_pairs = !../Lists/Filter (f %eq %x) %lst .
+        !../Lists/Map !../Products/Fst lst_pairs
 ]
-: (+%2 ^ +%2 ^ +booleans) ^ +%2 ^ +maps +%1 +%2 ^ +lists +%1
 

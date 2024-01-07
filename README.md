@@ -4,7 +4,7 @@
 A programming language based on combinatory logic and term rewrite systems, with an advanced
 type system.
 
-Copyright (C) 2020--2023 [Samuele Giraudo](https://igm.univ-mlv.fr/~giraudo/) -
+Copyright (C) 2020--2024 [Samuele Giraudo](https://igm.univ-mlv.fr/~giraudo/) -
 `giraudo.samuele@uqam.ca` -
 
 
@@ -53,7 +53,7 @@ This [page](Help.md) contains the description of the Aclove language.
 Aclove program files must have `.acl` as extension. The main command is
 
 ```
-./aclove [--help] [--version] --file PATH [--verbose] [--input OPT] [--output OPT]
+./aclove [--help] [--version] --file PATH [--verbose LVL] [--no-rules] [--no-shadows] [--short-names]
 ```
 
 where
@@ -61,12 +61,10 @@ where
 + `--help` prints the short help.
 + `--version` prints the version and other information.
 + `--file PATH` sets `PATH` as the path to the Aclove program to consider.
-+ `--verbose` enables the verbose mode.
-+ The options `OPT` control the display mode of the input and output expressions:
-    + `no-rules` drops the rules of the expression.
-    + `no-shadows` drops the shadows (or types) of the expression.
-    + `short-names` keeps only the last part of the variable and constant names of the
-      expression.
++ `--verbose LVL` enables the verbose mode at level LVL from 0 (nothing) to 2 (full). By default, the level is 1.
++ `--no-rules` drops the rules of the result expression.
++ `--no-shadows` drops the shadows (that are, types) of the result expression.
++ `--short-names` keeps only the last part of the variable and constant names of the result expression.
 
 
 ### Standard library

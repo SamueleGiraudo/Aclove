@@ -1,0 +1,4 @@
+'next [
+| (!Char %c) # !Char (!../Naturals/Succ %c)
+]
+

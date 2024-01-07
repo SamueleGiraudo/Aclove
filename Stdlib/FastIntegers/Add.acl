@@ -1,0 +1,18 @@
+let integers = put Integers in
+let add_positive = put AddPositive in
+let sub_positive = put SubPositive in
+let opposite = put Opposite in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+
+'add[integers ^ integers ^ integers]
+['add + (pair + true + %u1) + (pair + true + %u2) ->
+    add_positive + (pair + true + %u1) + (pair + true + %u2)]
+['add + (pair + true + %u1) + (pair + false + %u2) ->
+    sub_positive + (pair + true + %u1) + (pair + true + %u2)]
+['add + (pair + false + %u1) + (pair + true + %u2) ->
+    sub_positive + (pair + true + %u2) + (pair + true + %u1)]
+['add + (pair + false + %u1) + (pair + false + %u2) ->
+    opposite + (add_positive + (pair + true + %u1) + (pair + true + %u2))]
+

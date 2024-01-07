@@ -1,0 +1,11 @@
+let integers = put Integers in
+let decr_pos = put DecrPositive in
+let decr_neg = put DecrNegative in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+
+'decr[integers ^ integers]
+['decr + (pair + true + %u) -> decr_pos + (pair + true + %u)]
+['decr + (pair + false + %u) -> decr_neg + (pair + false + %u)]
+

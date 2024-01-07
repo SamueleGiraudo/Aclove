@@ -1,0 +1,6 @@
+let map = put ../Products/Map in
+let id = put ../Functions/Id in
+let push_1 = put ../BitSequences/Push1 in
+
+map + id + push_1
+

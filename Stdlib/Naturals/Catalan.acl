@@ -1,5 +1,4 @@
 'catalan [
-    @ %n -> !Div (!Binom (!Add %n %n) %n) (!Succ %n)
+| %n # !Div (!Binom (!Add %n %n) %n) (!Succ %n)
 ]
-: +!Naturals ^ +!Naturals
 

@@ -1,8 +1,4 @@
-let booleans = put ../Booleans/Booleans in
-let and = put ../Booleans/And in
-
 'leq_to_eq [
-    @ %leq %x1 %x2 -> and (%leq %x1 %x2) (%leq %x2 %x1)
+| %leq %x1 %x2 # !../Booleans/And (%leq %x1 %x2) (%leq %x2 %x1)
 ]
-: (+%e ^ +%e ^ +booleans) ^ (+%e ^ +%e ^ +booleans)
 

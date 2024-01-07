@@ -2,14 +2,14 @@
 
 # Author: Samuele Giraudo
 # Creation: apr. 2023
-# Modifications: apr. 2023, jun. 2023, jul. 2023, aug. 2023
+# Modifications: apr. 2023, jun. 2023, jul. 2023, aug. 2023, jan. 2024
 
 # Usage:
 #    ./InterpretAll DIRECTORY "OPTIONS'
 # This runs ./aclove --file FILE OPTIONS on all the .acl files FILE in the directory
 # DIRECTORY and in its sub-directories recursively.
 # Example:
-#    ./InterpretAll.sh Std/Main.acl "--verbose --input --output no-rules short-names"
+#    ./InterpretAll.sh Std/Main.acl "--verbose 2 --no-rules --short-names"
 
 current_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 options=$2

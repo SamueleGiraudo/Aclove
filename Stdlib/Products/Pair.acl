@@ -1,4 +1,2 @@
-let pairs = put Pairs in
-
-'pair : +%e1 ^ +%e2 ^ +pairs +%e1 +%e2
+'pair : %e1 ^ %e2 ^ !Pairs %e1 %e2
 

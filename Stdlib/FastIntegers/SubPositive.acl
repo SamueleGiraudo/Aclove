@@ -1,0 +1,28 @@
+let integers = put Integers in
+let zero = put Numbers/Zero in
+let opposite = put Opposite in
+let push_0 = put Push0 in
+let incr = put Incr in
+let decr = put Decr in
+let is_zero = put IsZero in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let if = put ../Booleans/If in
+let b0 = put ../BitSequences/Push0 in
+let b1 = put ../BitSequences/Push1 in
+
+'sub_positive[integers ^ integers ^ integers]
+['sub_positive + %i + zero -> %i]
+['sub_positive + zero + (pair + %b + (b0 + %u)) -> opposite + (pair + %b + (b0 + %u))]
+['sub_positive + zero + (pair + %b + (b1 + %u)) -> opposite + (pair + %b + (b1 + %u))]
+['sub_positive + (pair + true + (b0 + %u1)) + (pair + true + (b0 + %u2)) ->
+    let i = 'sub_positive + (pair + true + %u1) + (pair + true + %u2) in
+    if + (is_zero + i) + zero + (push_0 + i)]
+['sub_positive + (pair + true + (b0 + %u1)) + (pair + true + (b1 + %u2)) ->
+    decr + (push_0 + ('sub_positive + (pair + true + %u1) + (pair + true + %u2)))]
+['sub_positive + (pair + true + (b1 + %u1)) + (pair + true + (b0 + %u2)) ->
+    incr + (push_0 + ('sub_positive + (pair + true + %u1) + (pair + true + %u2)))]
+['sub_positive + (pair + true + (b1 + %u1)) + (pair + true + (b1 + %u2)) ->
+    let i = 'sub_positive + (pair + true + %u1) + (pair + true + %u2) in
+    if + (is_zero + i) + zero + (push_0 + i)]
+

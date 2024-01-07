@@ -1,0 +1,6 @@
+let integers = put Integers in
+let add = put Add in
+let opposite = put Opposite in
+
+'sub[integers ^ integers ^ integers]
+['sub + %i1 + %i2 -> add + %i1 + (opposite + %i2)]

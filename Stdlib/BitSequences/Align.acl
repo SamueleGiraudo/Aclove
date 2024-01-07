@@ -1,0 +1,22 @@
+'align [
+    | !Empty !Empty # !../Products/Pair !Empty !Empty
+
+    | (!../Lists/Cell %b %u) !Empty #
+        tmp = @ %u !Empty .
+        !../Products/Pair
+            (!../Lists/Cell %b (!../Products/Fst tmp))
+            (!../Lists/Cell !Bits/0 (!../Products/Snd tmp))
+
+    | !Empty (!../Lists/Cell %b %u) #
+        tmp = @ !Empty %u .
+        !../Products/Pair
+            (!../Lists/Cell !Bits/0 (!../Products/Fst tmp))
+            (!../Lists/Cell %b (!../Products/Snd tmp))
+
+    | (!../Lists/Cell %b1 %u1) (!../Lists/Cell %b2 %u2) #
+        tmp = @ %u1 %u2 .
+        !../Products/Pair
+            (!../Lists/Cell %b1 (!../Products/Fst tmp))
+            (!../Lists/Cell %b2 (!../Products/Snd tmp))
+]
+

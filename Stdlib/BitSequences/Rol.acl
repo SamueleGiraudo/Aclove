@@ -1,0 +1,5 @@
+'rol [
+    | !Empty # !Empty
+    | (!../Lists/Cell %b %u) # !../Lists/PushEnd %b %u
+]
+

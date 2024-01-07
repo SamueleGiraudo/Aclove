@@ -1,0 +1,4 @@
+'reduce [
+    | %f (!Cell %x %lst) # !FoldLeft %f %x %lst
+]
+

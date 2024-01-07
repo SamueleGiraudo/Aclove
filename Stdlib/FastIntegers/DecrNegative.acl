@@ -1,0 +1,10 @@
+let integers = put Integers in
+let incr_positive = put IncrPositive in
+let opposite = put Opposite in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+
+'decr_negative[integers ^ integers]
+['decr_negative + (pair + false + %u) -> opposite + (incr_positive + (pair + true + %u))]
+

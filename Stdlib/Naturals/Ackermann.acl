@@ -1,7 +1,6 @@
 'ackermann [
-    @ !Zero %n -> !Succ %n;
-    @ (!Succ %n) !Zero -> @ %n !Numbers/One;
-    @ (!Succ %n1) (!Succ %n2) -> @ %n1 (@ (!Succ %n1) %n2)
+| !Zero %n # !Succ %n
+| (!Succ %n) !Zero # @ %n !Numbers/1
+| (!Succ %n1) (!Succ %n2) # @ %n1 (@ (!Succ %n1) %n2)
 ]
-: +!Naturals ^ +!Naturals ^ +!Naturals
 

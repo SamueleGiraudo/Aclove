@@ -1,0 +1,4 @@
+'eq [
+    | %i1 %i2 # !IsZero (!Sub %i1 %i2)
+]
+

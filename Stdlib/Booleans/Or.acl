@@ -1,10 +1,5 @@
-let booleans = put Booleans in
-let true = put True in
-let false = put False in
-
 'or [
-    @ true %b -> true;
-    @ false %b -> %b
+    | !True %b # !True
+    | !False %b # %b
 ]
-: +booleans ^ +booleans ^ +booleans
 

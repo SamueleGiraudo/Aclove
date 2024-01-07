@@ -1,7 +1,7 @@
 " Author: Samuele Giraudo
 " Creation: feb. 2022
 " Modifications: feb. 2022, mar. 2022, may. 2022, aug. 2022, sep. 2022, oct. 2022,
-" nov. 2022, dec. 2022, apr. 2023, jul. 2023
+" nov. 2022, dec. 2022, apr. 2023, jul. 2023, nov. 2023, dec. 2023
 
 " Syntax file of the Aclove language.
 " This file has to be at ~/.vim/syntax/acl.vim
@@ -14,19 +14,17 @@ endif
 set nospell
 
 " Comments.
-syn region Comment start="{" end="}"
+syn region Comment start="{" end="}" containedin=ALL
 
 " Structure keyword and symbols.
-syn keyword Delimiter let
-syn keyword Delimiter in
-syn keyword Delimiter put
-syn match Delimiter  "="
+syn match Delimiter "="
+syn match Delimiter "\."
 syn match Delimiter "!"
 
 " Symbol operators and related things.
 syn match Operator "\^"
-syn match Operator "+"
-syn match Operator "-"
+syn match Operator ">>"
+syn match Operator "<<"
 
 " Other symbols.
 syn match Label "("
@@ -36,8 +34,7 @@ syn match Label "\]"
 syn match Label "<"
 syn match Label ">"
 syn match Label ":"
-syn match Label ";"
-syn match Label "->"
+syn match Label "#"
 syn match Label "@"
 
 " Variable names.

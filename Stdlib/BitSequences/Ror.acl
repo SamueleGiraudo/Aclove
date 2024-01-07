@@ -1,0 +1,4 @@
+'ror [
+    | %u # !Reverse (!Rol (!Reverse %u))
+]
+

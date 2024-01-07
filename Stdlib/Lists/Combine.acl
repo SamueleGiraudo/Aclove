@@ -1,7 +1,5 @@
 'combine [
-    @ !Empty !Empty -> !Empty;
-    @ (!Cell %x1 %lst1) (!Cell %x2 %lst2) ->
-        !Cell (!../Products/Pair %x1 %x2) (@ %lst1 %lst2)
+| !Empty !Empty # !Empty
+| (!Cell %x1 %lst1) (!Cell %x2 %lst2) # !Cell (!../Products/Pair %x1 %x2) (@ %lst1 %lst2)
 ]
-: +!Lists +%e1 ^ +!Lists +%e2 ^ +!Lists (+!../Products/Pairs +%e1 +%e2)
 

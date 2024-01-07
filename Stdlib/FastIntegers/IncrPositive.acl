@@ -1,0 +1,15 @@
+let integers = put Integers in
+let one = put Numbers/One in
+let push_0 = put Push0 in
+let b0 = put ../BitSequences/Push0 in
+let b1 = put ../BitSequences/Push1 in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let empty = put ../BitSequences/Empty in
+
+'incr_positive[integers ^ integers]
+['incr_positive + (pair + true + empty) -> one]
+['incr_positive + (pair + true + (b0 + %u)) -> pair + true + (b1 + %u)]
+['incr_positive + (pair + true + (b1 + %u)) ->
+    push_0 + ('incr_positive + (pair + true + %u))]
+

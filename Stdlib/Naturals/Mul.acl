@@ -1,6 +1,5 @@
 'mul [
-    @ %n !Zero -> !Zero;
-    @ %n1 (!Succ %n2) -> !Add (@ %n1 %n2) %n1
+| %n !Zero # !Zero
+| %n1 (!Succ %n2) # !Add (@ %n1 %n2) %n1
 ]
-: +!Naturals ^ +!Naturals ^ +!Naturals
 

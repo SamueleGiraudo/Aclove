@@ -1,6 +1,5 @@
 'append [
-    @ !Empty %lst -> %lst;
-    @ (!Cell %x %lst1) %lst2 -> !Cell %x (@ %lst1 %lst2)
+| !Empty %lst # %lst
+| (!Cell %x %lst1) %lst2 # !Cell %x (@ %lst1 %lst2)
 ]
-: +!Lists +%e ^ +!Lists +%e ^ +!Lists +%e
 

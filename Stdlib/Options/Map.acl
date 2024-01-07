@@ -1,10 +1,5 @@
-let options = put Options in
-let none = put None in
-let some = put Some in
-
 'map [
-    @ none %f -> none ;
-    @ (some %x) %f -> some (%f %x)
+    | !None %f # !None
+    | (!Some %x) %f # !Some (%f %x)
 ]
-: +options +%e1 ^ (+%e1 ^ +%e2) ^ +options +%e2
 

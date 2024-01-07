@@ -1,13 +1,5 @@
-let lists = put Lists in
-let empty = put Empty in
-let cell = put Cell in
-let naturals = put ../Naturals/Naturals in
-let zero = put ../Naturals/Zero in
-let succ = put ../Naturals/Succ in
-
 'len [
-    @ empty -> zero;
-    @ (cell %x %lst) -> succ (@ %lst)
+| !Empty # !../Naturals/Zero
+| (!Cell %x %lst) # !../Naturals/Succ (@ %lst)
 ]
-: (+lists +%e) ^ +naturals
 

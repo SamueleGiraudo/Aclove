@@ -1,0 +1,5 @@
+'absolute_natural [
+    | (!Positive %n) # %n
+    | (!Negative %n) # %n
+]
+

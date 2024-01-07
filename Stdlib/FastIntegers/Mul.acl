@@ -1,0 +1,17 @@
+let integers = put Integers in
+let opposite = put Opposite in
+let mul_positive = put MulPositive in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let false = put ../Booleans/False in
+
+'mul[integers ^ integers ^ integers]
+['mul + (pair + true + %u1) + (pair + true + %u2) ->
+    mul_positive + (pair + true + %u1) + (pair + true + %u2)]
+['mul + (pair + true + %u1) + (pair + false + %u2) ->
+    opposite + (mul_positive + (pair + true + %u1) + (pair + true + %u2))]
+['mul + (pair + false + %u1) + (pair + true + %u2) ->
+    opposite + (mul_positive + (pair + true + %u1) + (pair + true + %u2))]
+['mul + (pair + false + %u1) + (pair + false + %u2) ->
+    mul_positive + (pair + true + %u1) + (pair + true + %u2)]
+

@@ -1,4 +1,2 @@
-let booleans = put Booleans in
-
-'true : +booleans
+'true : !Booleans
 

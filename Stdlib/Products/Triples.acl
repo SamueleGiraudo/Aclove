@@ -1,7 +1,4 @@
-let pairs = put Pairs in
-
 'triples [
-    @ %e1 %e2 %e3 -> pairs %e1 (pairs %e2 %e3)
+    | %e1 %e2 %e3 # !Pairs %e1 (!Pairs %e2 %e3)
 ]
-: +%e1 ^ +%e2 ^ +%e3 ^ +%t
 

@@ -1,8 +1,4 @@
-let lists = put ../Lists/Lists in
-let pairs = put ../Products/Pairs in
-
 'maps [
-    @ %e1 %e2 -> lists (pairs %e1 %e2)
+    | %e1 %e2 # !../Lists/Lists (!../Products/Pairs %e1 %e2)
 ]
-: +%e1 ^ +%e2 ^ +%t
 

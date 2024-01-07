@@ -1,4 +1,2 @@
-let options = put Options in
-
-'none : +options +%e
+'none : !Options %e
 

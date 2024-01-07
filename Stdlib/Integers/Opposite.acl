@@ -1,0 +1,5 @@
+'opposite [
+    | (!Positive %n) # !Negative %n
+    | (!Negative %n) # !Positive %n
+]
+

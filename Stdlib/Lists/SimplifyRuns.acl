@@ -1,15 +1,8 @@
-let lists = put Lists in
-let empty = put Empty in
-let cell = put Cell in
-let booleans = put ../Booleans/Booleans in
-let if = put ../Booleans/If in
-
 'simplify_runs [
-    @ %eq empty -> empty;
-    @ %eq (cell %x empty) -> cell %x empty;
-    @ %eq (cell %x1 (cell %x2 %lst)) ->
-        let tmp = @ %eq (cell %x2 %lst) in
-        if (%eq %x1 %x2) tmp (cell %x1 tmp)
+| %eq !Empty # !Empty
+| %eq (!Cell %x !Empty) # !Cell %x !Empty
+| %eq (!Cell %x1 (!Cell %x2 %lst)) #
+    tmp = @ %eq (!Cell %x2 %lst) .
+    !../Booleans/If (%eq %x1 %x2) tmp (!Cell %x1 tmp)
 ]
-: (+%e ^ +%e ^ +booleans) ^ +lists +%e ^ +lists +%e
 

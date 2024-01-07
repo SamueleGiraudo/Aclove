@@ -1,0 +1,17 @@
+let integers = put Integers in
+let mul = put Mul in
+let decr = put Decr in
+let zero = put Numbers/Zero in
+let one = put Numbers/One in
+let pair = put ../Products/Pair in
+let true = put ../Booleans/True in
+let b0 = put ../BitSequences/Push0 in
+let b1 = put ../BitSequences/Push1 in
+
+'fact[integers ^ integers ^ integers]
+['fact + zero -> one]
+['fact + (pair + true + (b0 + %u)) ->
+    mul + (pair + true + (b0 + %u)) + ('fact + (decr + (pair + true + (b0 + %u))))]
+['fact + (pair + true + (b1 + %u)) ->
+    mul + (pair + true + (b1 + %u)) + ('fact + (decr + (pair + true + (b1 + %u))))]
+

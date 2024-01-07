@@ -1,10 +1,5 @@
-let options = put Options in
-let none = put None in
-let some = put Some in
-
 'bind [
-    @ %f none -> none;
-    @ %f (some %x) -> %f %x
+    | %f !None # !None
+    | %f (!Some %x) # %f %x
 ]
-: (+%e1 ^ +options +%e2) ^ +options +%e1 ^ +options +%e2
 

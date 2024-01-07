@@ -1,8 +1,4 @@
-let options = put Options in
-let some = put Some in
-
 'get [
-    @ (some %x) -> %x
+    | (!Some %x) # %x
 ]
-: +options +%e ^ +%e
 

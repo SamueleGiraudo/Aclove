@@ -1,7 +1,8 @@
 (* Author: Samuele Giraudo
  * Creation: jun. 2020
  * Modifications: jun. 2020, jan. 2021, feb. 2021, nov. 2021, dec. 2021, feb. 2022,
- * aug. 2022, oct. 2022, nov. 2022, dec. 2022, apr. 2023, jun. 2023, jul. 2023
+ * aug. 2022, oct. 2022, nov. 2022, dec. 2022, apr. 2023, jun. 2023, jul. 2023,
+ * dec. 2023
  *)
 
 {
@@ -101,19 +102,17 @@ rule read = parse
     |"]" {Parser.R_BRACK}
     |"<" {Parser.LT}
     |">" {Parser.GT}
+    |"<<" {Parser.LTLT}
+    |">>" {Parser.GTGT}
     |"%" {Parser.PERCENT}
     |"'" {Parser.PRIME}
-    |"+" {Parser.PLUS}
-    |"-" {Parser.MINUS}
     |"@" {Parser.AT}
     |":" {Parser.COLON}
-    |"->" {Parser.ARROW}
-    |";" {Parser.SEMICOLON}
+    |"#" {Parser.SHARP}
+    |"|" {Parser.PIPE}
     |"^" {Parser.CIRC}
-    |"let" {Parser.LET}
     |"=" {Parser.EQUAL}
-    |"in" {Parser.IN}
-    |"put" {Parser.PUT}
+    |"." {Parser.DOT}
     |"!" {Parser.BANG}
     |char_string {Parser.CHAR_STRING (Lexing.lexeme lexbuf)}
     |"{" {comment 0 lexbuf}

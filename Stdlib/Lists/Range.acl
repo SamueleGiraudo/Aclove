@@ -1,6 +1,2 @@
-let init = put Init in
-let id = put ../Functions/Id in
-let flip = put ../Functions/Flip in
-
-flip init id
+!../Functions/Flip !Init !../Functions/Id
 

@@ -1,8 +1,4 @@
-let pairs = put Pairs in
-let pair = put Pair in
-
 'snd [
-    @ (pair %x1 %x2) -> %x2
+    | (!Pair %x1 %x2) # %x2
 ]
-: +pairs +%e1 +%e2 ^ +%e2
 

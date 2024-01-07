@@ -1,2 +1,4 @@
-'decr [@ %i -> !Add %i !MinusOne]
+'decr [
+    | %i # !Add %i (!Negative !../Naturals/Numbers/1)
+]
 

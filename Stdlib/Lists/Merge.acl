@@ -1,17 +1,10 @@
-let lists = put Lists in
-let empty = put Empty in
-let cell = put Cell in
-let booleans = put ../Booleans/Booleans in
-let if = put ../Booleans/If in
-
 'merge [
-    @ %leq empty empty -> empty;
-    @ %leq empty (cell %x %lst) -> cell %x %lst;
-    @ %leq (cell %x %lst) empty -> cell %x %lst;
-    @ %leq (cell %x1 %lst1) (cell %x2 %lst2) ->
-        if (%leq %x1 %x2)
-            (cell %x1 (@ %leq %lst1 (cell %x2 %lst2)))
-            (cell %x2 (@ %leq (cell %x1 %lst1) %lst2))
+| %leq !Empty !Empty # !Empty
+| %leq !Empty (!Cell %x %lst) # !Cell %x %lst
+| %leq (!Cell %x %lst) !Empty # !Cell %x %lst
+| %leq (!Cell %x1 %lst1) (!Cell %x2 %lst2) #
+    !../Booleans/If (%leq %x1 %x2)
+        (!Cell %x1 (@ %leq %lst1 (!Cell %x2 %lst2)))
+        (!Cell %x2 (@ %leq (!Cell %x1 %lst1) %lst2))
 ]
-: (+%e ^ +%e ^ +booleans) ^ +lists +%e ^ +lists +%e ^ +lists +%e
 

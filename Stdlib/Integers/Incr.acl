@@ -1,2 +1,4 @@
-'incr [@ %i -> !Add %i !One]
+'incr [
+    | %i # !Add %i (!Positive !../Naturals/Numbers/1)
+]
 

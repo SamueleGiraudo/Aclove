@@ -1,10 +1,5 @@
-let booleans = put Booleans in
-let true = put True in
-let false = put False in
-
 'not [
-    @ true -> false;
-    @ false -> true
+    | !True # !False
+    | !False # !True
 ]
-: +booleans ^ +booleans
 

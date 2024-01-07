@@ -1,0 +1,4 @@
+'suffix [
+| %lst %n # !Reverse (!Prefix (!Reverse %lst) %n)
+]
+

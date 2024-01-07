@@ -1,6 +1,5 @@
 'gcd [
-    @ %n !Zero -> %n;
-    @ %n1 (!Succ %n2) -> @ (!Succ %n2) (!Mod %n1 (!Succ %n2))
+| %n !Zero # %n
+| %n1 (!Succ %n2) # @ (!Succ %n2) (!Mod %n1 (!Succ %n2))
 ]
-: +!Naturals ^ +!Naturals ^ +!Naturals
 

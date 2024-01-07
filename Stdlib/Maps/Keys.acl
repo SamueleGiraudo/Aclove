@@ -1,14 +1,5 @@
-let maps = put Maps in
-let empty = put Empty in
-
-let lists = put ../Lists/Lists in
-let cell = put ../Lists/Cell in
-
-let fst = put ../Products/Fst in
-
 'keys [
-    @ empty -> empty;
-    @ (cell %pair %lst) -> cell (fst %pair) (@ %lst)
+    | !Empty # !Empty
+    | (!../Lists/Cell %pair %lst) # !../Lists/Cell (!../Products/Fst %pair) (@ %lst)
 ]
-: +maps +%1 +%2 ^ +lists +%1
 

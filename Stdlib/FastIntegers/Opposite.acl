@@ -1,0 +1,6 @@
+let map = put ../Products/Map in
+let not = put ../Booleans/Not in
+let id = put ../Functions/Id in
+
+map + not + id
+

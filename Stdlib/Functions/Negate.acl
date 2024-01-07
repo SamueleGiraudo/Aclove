@@ -1,5 +1,2 @@
-let compose = put Compose in
-let not = put ../Booleans/Not in
-
-compose not
+!Compose !../Booleans/Not
 

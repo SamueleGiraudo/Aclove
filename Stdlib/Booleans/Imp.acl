@@ -1,10 +1,5 @@
-let booleans = put Booleans in
-let true = put True in
-let false = put False in
-
 'imp [
-    @ true %b -> %b;
-    @ false %b -> true
+    | !True %b # %b
+    | !False %b # !True
 ]
-: +booleans ^ +booleans ^ +booleans
 

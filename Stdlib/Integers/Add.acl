@@ -1,16 +1,15 @@
 'add [
-    @ (!Positive %n1) (!Positive %n2) -> !Positive (!../Naturals/Add %n1 %n2);
-    @ (!Negative %n1) (!Negative %n2) -> !Negative (!../Naturals/Add %n1 %n2);
-    @ (!Positive %n1) (!Negative %n2) ->
+    | (!Positive %n1) (!Positive %n2) # !Positive (!../Naturals/Add %n1 %n2)
+    | (!Negative %n1) (!Negative %n2) # !Negative (!../Naturals/Add %n1 %n2)
+    | (!Positive %n1) (!Negative %n2) #
         !../Booleans/If
             (!../Naturals/Leq %n1 %n2)
             (!Negative (!../Naturals/Sub %n2 %n1))
-            (!Positive (!../Naturals/Sub %n1 %n2));
-    @ (!Negative %n1) (!Positive %n2) ->
+            (!Positive (!../Naturals/Sub %n1 %n2))
+    | (!Negative %n1) (!Positive %n2) #
         !../Booleans/If
             (!../Naturals/Leq %n1 %n2)
             (!Positive (!../Naturals/Sub %n2 %n1))
             (!Negative (!../Naturals/Sub %n1 %n2))
 ]
-: +!Integers ^ +!Integers ^ +!Integers
 

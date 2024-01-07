@@ -1,0 +1,7 @@
+let pairs = put ../Products/Pairs in
+let bools = put ../Booleans/Booleans in
+let bit_sequences = put ../BitSequences/BitSequences in
+
+''integers
+[''integers -> pairs + bools + bit_sequences]
+

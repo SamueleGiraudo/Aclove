@@ -1,8 +1,7 @@
 'mul [
-    @ (!Positive %n1) (!Positive %n2) -> !Positive (!../Naturals/Mul %n1 %n2);
-    @ (!Negative %n1) (!Negative %n2) -> !Positive (!../Naturals/Mul %n1 %n2);
-    @ (!Positive %n1) (!Negative %n2) -> !Negative (!../Naturals/Mul %n1 %n2);
-    @ (!Negative %n1) (!Positive %n2) -> !Negative (!../Naturals/Mul %n1 %n2)
+    | (!Positive %n1) (!Positive %n2) # !Positive (!../Naturals/Mul %n1 %n2)
+    | (!Negative %n1) (!Negative %n2) # !Positive (!../Naturals/Mul %n1 %n2)
+    | (!Positive %n1) (!Negative %n2) # !Negative (!../Naturals/Mul %n1 %n2)
+    | (!Negative %n1) (!Positive %n2) # !Negative (!../Naturals/Mul %n1 %n2)
 ]
-: +!Integers ^ +!Integers ^ +!Integers
 

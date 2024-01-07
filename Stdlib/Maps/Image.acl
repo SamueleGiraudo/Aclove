@@ -1,21 +1,6 @@
-let maps = put Maps in
-
-let booleans = put ../Booleans/Booleans in
-let if = put ../Booleans/If in
-
-let empty = put ../Lists/Empty in
-let cell = put ../Lists/Cell in
-let only = put ../Lists/Only in
-
-let pair = put ../Products/Pair in
-
-let options = put ../Options/Options in
-let none = put ../Options/None in
-let some = put ../Options/Some in
-
 'image [
-    @ %eq %x empty -> none;
-    @ %eq %x1 (cell (pair %x2 %y) %lst) -> if (%eq %x1 %x2) (some %y) (@ %eq %x1 %lst)
+    | %eq %x !Empty # !../Options/None
+    | %eq %x1 (!../Lists/Cell (!../Products/Pair %x2 %y) %lst) #
+        !../Booleans/If (%eq %x1 %x2) (!../Options/Some %y) (@ %eq %x1 %lst)
 ]
-: (+%1 ^ +%1 ^ +booleans) ^ +%1 ^ (+maps +%1 +%2) ^ +options +%2
 

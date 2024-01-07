@@ -1,0 +1,13 @@
+bit_sequences = !BitSequences .
+xor_bit = !Bits/Xor .
+align = !Align .
+map_2 = !../Lists/Map2 .
+fst = !../Products/Fst .
+snd = !../Products/Snd .
+
+'xor [
+    | %u1 %u2 #
+        al = align %u1 %u2 .
+        map_2 xor_bit (fst al) (snd al)
+]
+

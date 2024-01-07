@@ -1,6 +1,5 @@
 'pred [
-    @ !Zero -> !Zero;
-    @ (!Succ %n) -> %n
+| !Zero # !Zero
+| (!Succ %n) # %n
 ]
-: +!Naturals ^ +!Naturals
 

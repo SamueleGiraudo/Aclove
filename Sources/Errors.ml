@@ -1,26 +1,40 @@
 (* Author: Samuele Giraudo
  * Creation: may 2022
  * Modifications: may 2022, aug. 2022, sep. 2022, oct. 2022, nov. 2022, dec. 2022,
- * apr. 2023, jun. 2023, jul. 2023
+ * apr. 2023, jun. 2023, jul. 2023, dec. 2023, jan. 2024
  *)
+
+module C = Constants
+module E = Expressions
+module F = Files
+module I = Information
+module Ls = Lists
+module Le = Lexer
+module P = Properties
+module Pa = Paths
+module S = Substitutions
+module St = Strings
+module V = Variables
+module Op = Operations
+module Ou = Outputs
 
 (* The error kinds an Aclove program can contain. *)
 type kinds =
-    |InvalidVariable of Variables.variables
-    |InvalidConstant of Constants.constants
-    |InvalidAlias of Expressions.alias
-    |UndefinedAlias of Expressions.alias
-    |InvalidDominantLeaf of Constants.constants
-    |InvalidSelf
-    |UnknownVariable of Variables.variables
-    |InvalidLevel of Levels.levels * Levels.levels
-    |NonlinearLeftMemberRule of Constants.constants
-    |AmbiguousConstant of Constants.constants
-    |RuleConflict of Constants.constants
-    |InvalidInclusionPath of Expressions.path
-    |CircularInclusion of Expressions.path
-    |SyntaxError of Lexer.error_kinds
-    |InvalidShadow
+    |InvalidVariableName of V.variables
+    |InvalidConstantName of C.constants
+    |InvalidAliasName of E.alias
+    |UnknownAlias of E.alias
+    |InvalidVariablePosition of E.expressions
+    |InvalidSelfPosition of E.expressions
+    |InvalidMapPosition of E.expressions
+    |UnknownVariable of V.variables
+    |NonlinearLeftMemberRule of C.constants
+    |AmbiguousConstant of C.constants
+    |RuleConflict of C.constants
+    |InvalidInclusionPath of E.path
+    |CircularInclusion of E.path
+    |NonUnifiableShadows of E.expressions * E.expressions
+    |SyntaxError of Le.error_kinds
 
 (* A type to represent information about an error. *)
 type errors = {
@@ -28,355 +42,351 @@ type errors = {
     kind: kinds;
 
     (* Information about the subexpression where the error appears. *)
-    information: Information.information
+    information: I.information
 }
 
 (* Returns the error obtained from the lexer error err. The kind of the returned error is
  * SyntaxError. *)
 let syntax_error_from_lexer err =
-    let kind = SyntaxError (Lexer.error_to_error_kind err) in
-    let info = Information.construct (Lexer.error_to_position err) in
+    let kind = SyntaxError (Le.error_to_error_kind err) in
+    let info = I.construct (Le.error_to_position err) in
     {kind = kind; information = info}
 
 (* Returns a string representation of the error err. *)
 let to_string err =
-    Information.to_string err.information ^ ": " ^
+    I.to_string err.information ^ ":\n" ^
     match err.kind with
-        |InvalidVariable v -> Printf.sprintf "invalid variable %s" (Variables.to_string v)
-        |InvalidConstant c -> Printf.sprintf "invalid constant %s" (Constants.to_string c)
-        |InvalidAlias alias -> Printf.sprintf "invalid alias %s" alias
-        |UndefinedAlias alias -> Printf.sprintf "undefined alias %s" alias
-        |InvalidDominantLeaf c ->
-            Printf.sprintf
-                "invalid dominant leaf for rule of constant %s"
-                (Constants.to_string c)
-        |InvalidSelf -> "invalid self"
+        |InvalidVariableName v ->
+            "invalid variable name\n" ^ (V.to_string v |> St.indent 4)
+        |InvalidConstantName c ->
+            "invalid constant name\n" ^ (C.to_string c |> St.indent 4)
+        |InvalidAliasName alias ->
+            "invalid alias name\n" ^ (alias |> St.indent 4)
+        |UnknownAlias alias ->
+            "unknown alias\n" ^ (alias |> St.indent 4)
+        |InvalidVariablePosition e ->
+            "invalid variable position in\n"
+            ^ (e |> Ou.to_buffered_string |> Buffer.contents |> St.indent 4)
+        |InvalidSelfPosition e ->
+            "invalid self position in\n"
+            ^ (e |> Ou.to_buffered_string |> Buffer.contents |> St.indent 4)
+        |InvalidMapPosition e ->
+            "invalid map position in\n"
+            ^ (e |> Ou.to_buffered_string |> Buffer.contents |> St.indent 4)
         |UnknownVariable v ->
-            Printf.sprintf
-                "unknown variable %s in right member of rule"
-                (Variables.to_string v)
-        |InvalidLevel (lvl, lvl') ->
-            Printf.sprintf
-                "level %d is expected instead of %d" (Levels.value lvl) (Levels.value lvl')
+            "unknown variable\n" ^ (V.to_string v |> St.indent 4)
         |NonlinearLeftMemberRule c ->
-            Printf.sprintf
-                "nonlinear left member of rule of constant %s"
-                (Constants.to_string c)
+            "nonlinear left rule member of constant\n" ^ (C.to_string c |> St.indent 4)
         |AmbiguousConstant c ->
-            Printf.sprintf "constant %s already exists" (Constants.to_string c)
+            "already existing constant\n" ^ (C.to_string c |> St.indent 4)
         |RuleConflict c ->
-            Printf.sprintf "rule conflict for the constant %s" (Constants.to_string c)
-        |InvalidInclusionPath path -> Printf.sprintf "path %s is invalid for inclusion" path
-        |CircularInclusion path -> Printf.sprintf "circular inclusion involving %s" path
-        |SyntaxError err -> Lexer.error_kind_to_string err
-        |InvalidShadow -> "expression without shadow"
+            "rule conflict for constant\n" ^ (C.to_string c |> St.indent 4)
+        |InvalidInclusionPath path ->
+            "invalid inclusion path\n" ^ (path |> St.indent 4)
+        |CircularInclusion path ->
+            "circular inclusion involving\n" ^ (path |> St.indent 4)
+        |NonUnifiableShadows (sh1, sh2) ->
+            "non unifiable shadows\n"
+            ^ (sh1 |> Ou.to_buffered_string |> Buffer.contents |> St.indent 4)
+            ^ "\nand\n"
+            ^ (sh2 |> Ou.to_buffered_string |> Buffer.contents |> St.indent 4)
+        |SyntaxError err -> Le.error_kind_to_string err
+
+(* Returns the error reporting the non unifiable shadows sh1 and sh2 of the expression e. *)
+let make_non_unifiable_shadows_error e sh1 sh2 =
+    {kind = NonUnifiableShadows (sh1, sh2); information = P.root_information e}
 
 (* Returns the list of the inclusion errors in the expression e and recursively in the
  * expressions of the included Aclove files. *)
 let inclusion_errors e =
     let rec aux paths e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ |Expressions.Alias _ -> []
-            |Expressions.Constant (_, _, rules) ->
-                rules |> Lists.map_pairs_operation (aux paths) (@) |> List.flatten
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+            |E.Variable _ |E.Self _ |E.Alias _ -> []
+            |E.Constant (_, _, rules) ->
+                rules
+                |> List.map
+                    (fun (e_lst, e1) -> e1 :: e_lst |> List.map (aux paths) |> List.flatten)
+                |> List.flatten
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2) ->
                 aux paths e1 @ aux paths e2
-            |Expressions.Shift (_, _, e1) -> aux paths e1
-            |Expressions.AliasDefinition (_, _, e1, e2) -> aux paths e1 @ aux paths e2
-            |Expressions.Put (info, path) ->
-                let path = Files.add_file_extension path |> Paths.simplify in
-                if not (Sys.file_exists path) || not (Files.is_inclusion_path path) then
+            |E.AliasDefinition (_, _, e1, e2) -> aux paths e1 @ aux paths e2
+            |E.Put (info, path) ->
+                let path = Pa.add_extension F.extension path in
+                if not (Sys.file_exists path) || not (F.is_inclusion_path path) then
                     [{kind = InvalidInclusionPath path; information = info}]
                 else
-                    if List.mem path paths then
+                    let path' = Pa.canonicalize path in
+                    if List.mem path' paths then
                         []
                     else
                         try
-                            let e0 = Files.path_to_expression path in
-                            let paths' = path :: paths in
-                            if List.mem path (Files.included_paths e0) then
-                                [{kind = CircularInclusion path; information = info}]
+                            let e0 = F.path_to_expression path' in
+                            let paths' = path' :: paths in
+                            if List.mem path' (F.included_paths e0) then
+                                [{kind = CircularInclusion path'; information = info}]
                             else
                                 aux paths' e0
                         with
-                            |Lexer.Error err -> [syntax_error_from_lexer err]
+                            |Le.Error err -> [syntax_error_from_lexer err]
     in
     aux [] e |> List.sort_uniq compare
 
-(* Returns the list of the invalid identifiers in the expression e. This expression has to
- * be inclusion free. *)
-let invalid_identifier_errors e =
-    assert (Properties.is_inclusion_free e);
+(* Returns the list of the invalid variable names, invalid constant names, and invalid alias
+ * names in the expression e. *)
+let invalid_name_errors e =
     let rec aux e =
         match e with
-            |Expressions.Variable (info, v) ->
-                if Files.is_variable_name (Variables.name v) then
+            |E.Variable (info, v) ->
+                if F.is_variable_name (V.name v) then
                     []
                 else
-                    [{kind = InvalidVariable v; information = info}]
-            |Expressions.Constant (info, c, rules) ->
-                let tmp = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
-                if Files.is_constant_name (Constants.name c) then
+                    [{kind = InvalidVariableName v; information = info}]
+            |E.Constant (info, c, rules) ->
+                let tmp =
+                    rules
+                    |> List.map
+                        (fun (e_lst, e1) -> e1 :: e_lst |> List.map aux |> List.flatten)
+                    |> List.flatten
+                in
+                if F.is_constant_name (C.name c) then
                     tmp
                 else
-                    {kind = InvalidConstant c; information = info} :: tmp
-            |Expressions.Self _ -> []
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+                    {kind = InvalidConstantName c; information = info} :: tmp
+            |E.Self _ |E.Put _ -> []
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2) ->
                 aux e1 @ aux e2
-            |Expressions.Shift (_, _, e1) -> aux e1
-            |Expressions.Alias (info, alias) ->
-                if Files.is_alias alias then
+            |E.Alias (info, alias) ->
+                if F.is_alias alias then
                     []
                 else
-                    [{kind = InvalidAlias alias; information = info}]
-            |Expressions.AliasDefinition (info, alias, e1, e2) ->
+                    [{kind = InvalidAliasName alias; information = info}]
+            |E.AliasDefinition (info, alias, e1, e2) ->
                 let tmp = aux e1 @ aux e2 in
-                if Files.is_alias alias then
+                if F.is_alias alias then
                     tmp
                 else
-                    {kind = InvalidAlias alias; information = info} :: tmp
-            |_ -> Expressions.ValueError (e, "Errors.invalid_identifier_errors") |> raise
+                    {kind = InvalidAliasName alias; information = info} :: tmp
     in
     aux e |> List.sort_uniq compare
 
-(* Returns the list of the errors about the undefined aliases in the expression e. This
- * expression has to be inclusion free. *)
-let undefined_alias_errors e =
-    assert (Properties.is_inclusion_free e);
+(* Returns the list of the errors about the unknown aliases in the expression e. *)
+let unknown_alias_errors e =
     let rec aux e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (_, _, rules) ->
-                rules |> Lists.map_pairs_operation aux (@) |> List.flatten
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+            |E.Variable _ |E.Self _ |E.Put _ -> []
+            |E.Constant (_, _, rules) ->
+                rules
+                |> List.map
+                    (fun (e_lst, e1) -> e1 :: e_lst |> List.map aux |> List.flatten)
+                |> List.flatten
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2) ->
                 aux e1 @ aux e2
-            |Expressions.Shift (_, _, e1) -> aux e1
-            |Expressions.Alias (info, alias) -> [(alias, info)]
-            |Expressions.AliasDefinition (_, alias, e1, e2) ->
+            |E.Alias (info, alias) -> [(alias, info)]
+            |E.AliasDefinition (_, alias, e1, e2) ->
                 aux e1 @ (aux e2 |> List.filter (fun (alias', _) -> alias' <> alias))
-            |_ -> Expressions.ValueError (e, "Errors.undefined_alias_errors") |> raise
     in
     aux e
-    |> List.map (fun (alias, info) -> {kind = UndefinedAlias alias; information = info})
+    |> List.map (fun (alias, info) -> {kind = UnknownAlias alias; information = info})
     |> List.sort_uniq compare
 
-(* Returns the list of the errors about the invalid dominant leaves in the expression e.
- * In all rules, the dominant leaves of the left members must be the expression self. The
- * expression e has to be simple. *)
-let invalid_dominant_leaf_errors e =
-    assert (Properties.is_simple e);
-    let rec aux e =
+(* Returns the list of the errors about the invalid variables in the expression e. Such an
+ * error appears when a variable is located outside a rule or a shadow. *)
+let invalid_variable_position_errors e =
+    let rec aux forbidden e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (_, c, rules) ->
-                let tmp_1 = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
-                let tmp_2 =
-                    rules
-                    |> List.filter (fun (e1, _) ->
-                        match Properties.dominant_leaf e1 with
-                            |Expressions.Self _ -> false
-                            |_ -> true)
-                    |> List.map (fun (e1, _) ->
-                        let info = Properties.root_information e1 in
-                        {kind = InvalidDominantLeaf c; information = info})
-                in
-                tmp_1 @ tmp_2
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
-                aux e1 @ aux e2
-            |_ -> Expressions.ValueError (e, "Errors.invalid_dominant_leaf_errors") |> raise
+            |E.Variable (info, _) -> begin
+                match forbidden with
+                    |None -> []
+                    |Some e -> [{kind = InvalidVariablePosition e; information = info}]
+            end
+            |E.Constant (_, _, rules) ->
+                rules
+                |> List.map (fun (e_lst, e1) -> e1 :: e_lst)
+                |> List.flatten
+                |> List.map (aux None)
+                |> List.flatten
+            |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2)
+            |E.AliasDefinition (_, _, e1, e2) ->
+                aux forbidden e1 @ aux forbidden e2
+            |E.Shadow (_, e1, sh) -> aux forbidden e1 @ aux None sh
     in
-    aux e
+    aux (Some e) e
 
 (* Returns the list of the errors about the invalid selfs in the expression e. Such an error
- * appears when a self expression is located outside a rule. The expression e has to be
- * simple. *)
-let invalid_self_errors e =
-    assert (Properties.is_simple e);
-    let rec aux self_allowed e =
+ * appears when a self expression is located outside a rule or externally in an expression
+ * which is in a left member of a rule. *)
+let invalid_self_position_errors e =
+    let rec aux forbidden e =
         match e with
-            |Expressions.Variable _ -> []
-            |Expressions.Constant (_, _, rules) ->
-                rules |> Lists.map_pairs_operation (aux true) (@) |> List.flatten
-            |Expressions.Self (info, _) ->
-                if self_allowed then [] else [{kind = InvalidSelf; information = info}]
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2) ->
-                aux self_allowed e1 @ aux self_allowed e2
-            |Expressions.Shadow (_, e1, sh) ->
-                aux self_allowed e1 @ aux false sh
-            |_ -> Expressions.ValueError (e, "Errors.invalid_self_errors") |> raise
-    in
-    aux false e
-
-(* Returns the list of the errors about the unknown variables of the right members or the
- * rules in the expression e. This expression has to be simple. *)
-let unknown_variable_errors e =
-    assert (Properties.is_simple e);
-    let rec aux e =
-        match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (_, _, rules) ->
-                let tmp_1 = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
-                let tmp_2 =
-                    rules
-                    |> List.map (fun (e1, e2) ->
-                        let left_vars = Properties.external_variables e1 in
-                        Properties.external_variables e2
-                            |> List.filter (fun v -> not (List.mem v left_vars))
-                            |> List.map (fun v ->
-                                let info = Properties.root_information e2 in
-                                {kind = UnknownVariable v; information = info}))
-                    |> List.flatten
-                in
-                tmp_1 @ tmp_2
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
-                aux e1 @ aux e2
-            |_ -> Expressions.ValueError (e, "Errors.unknown_variable_errors") |> raise
-    in
-    aux e |> List.sort_uniq compare
-
-(* Returns the list of the errors about the invalid levels in the expression e. This occurs
- * when a subexpression has a different level from the one expected by its enclosing
- * expression, or when the left and right members of a rule have different levels, or when
- * the members of a rule have a different level from the constant they belong, or when the
- * two members of an application or of a map have different levels, or when the shadow
- * of a constant has not as level 1 plus the level of the constant. The expression e has to
- * be simple. *)
-let invalid_level_errors e =
-    assert (Properties.is_simple e);
-    let error info lvl lvl' =
-        if lvl <> lvl' then
-            [{kind = InvalidLevel (lvl, lvl'); information = info}]
-        else
-            []
-    in
-    let rec aux e =
-        match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (_, c, rules) ->
-                let lvl = Constants.level c in
-                let tmp_1 = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
-                let tmp_2 =
+            |E.Variable _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (_, _, rules) ->
+                let tmp_1 =
                     rules
                     |> List.map fst
-                    |> List.map (fun e' ->
-                        error (Properties.root_information e') (Properties.level e') lvl)
+                    |> List.flatten
+                    |> List.map (fun e -> aux (Some e) e)
                     |> List.flatten
                 in
-                let tmp_3 =
+                let tmp_2 = rules |> List.map snd |> List.map (aux None) |> List.flatten in
+                tmp_1 @ tmp_2
+            |E.Self info -> begin
+                match forbidden with
+                    |None -> []
+                    |Some e -> [{kind = InvalidSelfPosition e; information = info}]
+            end
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2)
+            |E.AliasDefinition (_, _, e1, e2) ->
+                aux forbidden e1 @ aux forbidden e2
+            |E.Shadow (_, e1, sh) -> aux forbidden e1 @ aux (Some sh) sh
+    in
+    aux (Some e) e
+
+(* Returns the list of the errors about the invalid maps in the expression e. Such an error
+ * appears when a map is located outside a shadow. *)
+let invalid_map_position_errors e =
+    let rec aux forbidden e =
+        match e with
+            |E.Variable _ |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (_, _, rules) ->
+                rules
+                |> List.map (fun (e_lst, e1) -> e1 :: e_lst)
+                |> List.flatten
+                |> List.map (fun e -> aux (Some e) e)
+                |> List.flatten
+            |E.Application (_, e1, e2) |E.AliasDefinition (_, _, e1, e2) ->
+                aux (Some e1) e1 @ aux (Some e2) e2
+            |E.Map (info, e1, e2) ->
+                let tmp_1 =
+                    match forbidden with
+                        |None -> []
+                        |Some e -> [{kind = InvalidMapPosition e; information = info}]
+                in
+                tmp_1 @ aux forbidden e1 @ aux forbidden e2
+            |E.Shadow (_, e1, sh) -> aux (Some e1) e1 @ aux None sh
+    in
+    aux (Some e) e
+
+(* Returns the list of the errors about the unknown variables of the right members of the
+ * rules in the expression e. *)
+let unknown_variable_errors e =
+    let rec aux e =
+        match e with
+            |E.Variable _ |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (_, _, rules) ->
+                let tmp_1 =
                     rules
-                    |> List.map snd
-                    |> List.map (fun e' ->
-                        error (Properties.root_information e') (Properties.level e') lvl)
+                    |> List.map
+                        (fun (e_lst, e1) -> e1 :: e_lst |> List.map aux |> List.flatten)
                     |> List.flatten
                 in
-                tmp_1 @ tmp_2 @ tmp_3
-            |Expressions.Application (info, e1, e2) |Expressions.Map (info, e1, e2) ->
-                let tmp_1 = error info (Properties.level e1) (Properties.level e2) in
-                let tmp_2 = aux e1 @ aux e2 in
+                let tmp_2 =
+                    rules
+                    |> List.map
+                        (fun (e_lst, e1) ->
+                            let left_vars =
+                                e_lst
+                                |> List.map P.external_variables
+                                |> List.flatten
+                            in
+                            P.external_variables e1
+                            |> List.filter (fun v -> not (List.mem v left_vars))
+                            |> List.map
+                                (fun v ->
+                                    let info = P.root_information e1 in
+                                    {kind = UnknownVariable v; information = info}))
+                    |> List.flatten
+                in
                 tmp_1 @ tmp_2
-            |Expressions.Shadow (info, e1, sh) ->
-                let lvl = Properties.level e1 |> Levels.shift 1 in
-                let tmp_1 = error info lvl (Properties.level sh) in
-                let tmp_2 = aux e1 @ aux sh in
-                tmp_1 @ tmp_2
-            |_ -> Expressions.ValueError (e, "Errors.invalid_level_errors") |> raise
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2)
+            |E.AliasDefinition (_, _, e1, e2) ->
+                aux e1 @ aux e2
     in
     aux e |> List.sort_uniq compare
 
 (* Returns the list of the errors about the left members of the rules of the expression e
- * which are nonlinear. This expression has to be simple. *)
+ * which are nonlinear. *)
 let nonlinear_errors e =
-    assert (Properties.is_simple e);
     let rec aux e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (_, c, rules) ->
-                let tmp_1 = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
+            |E.Variable _ |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (_, c, rules) ->
+                let tmp_1 =
+                    rules
+                    |> List.map
+                        (fun (e_lst, e1) -> e1 :: e_lst |> List.map aux |> List.flatten)
+                    |> List.flatten
+                in
                 let tmp_2 =
                     rules
-                    |> List.filter (fun (e', _) ->
-                        let seq = Properties.external_variable_sequence e' in
-                        List.length seq <> List.length (List.sort_uniq compare seq))
-                    |> List.map (fun (e', _) ->
-                        let info = Properties.root_information e' in
-                        {kind = NonlinearLeftMemberRule c; information = info})
+                    |> List.filter
+                        (fun (e_lst, _) ->
+                            let seq =
+                                e_lst
+                                |> List.map P.external_variable_sequence
+                                |> List.flatten
+                            in
+                            List.length seq <> List.length (List.sort_uniq compare seq))
+                    |> List.map
+                        (fun (_, e1) ->
+                            let info = P.root_information e1 in
+                            {kind = NonlinearLeftMemberRule c; information = info})
                 in
                 tmp_1 @ tmp_2
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2)
+            |E.AliasDefinition (_, _, e1, e2) ->
                 aux e1 @ aux e2
-            |_ -> Expressions.ValueError (e, "Errors.nonlinear_errors") |> raise
     in
     aux e |> List.sort_uniq compare
 
 (* Returns the list of the errors about the ambiguous constants in expression e. Two
- * constants are ambiguous if they have the same name but different rules or types. The
- * expression e has to be simple and external self free. *)
+ * constants are ambiguous if they have the same name but different rules. The expression e
+ * has to be inclusion free and alias free. *)
 let ambiguous_constant_errors e =
-    assert (Properties.is_simple e);
-    assert (Properties.is_external_self_free e);
     let rec aux e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (info, c, rules) ->
-                (info, c, rules)
-                :: (rules |> Lists.map_pairs_operation aux (@) |> List.flatten)
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+            |E.Variable _ |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (info, c, rules) ->
+                let tmp =
+                    rules
+                    |> List.map
+                        (fun (e_lst, e1) -> e1 :: e_lst |> List.map aux |> List.flatten)
+                    |> List.flatten
+                in
+                (info, c, rules) :: tmp
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2)
+            |E.AliasDefinition (_, _, e1, e2) ->
                 aux e1 @ aux e2
-            |_ -> Expressions.ValueError (e, "Errors.conflict_errors") |> raise
     in
-    Lists.triangle_product (aux e |> List.sort_uniq compare)
+    e
+    |> Op.remove_indices
+    |> aux
+    |> List.sort_uniq compare
+    |> Ls.triangle_product
     |> List.filter (fun ((_, c, rules), (_, c', rules')) -> c = c' && rules <> rules')
-    |> List.map (fun ((info, c, _), _) ->
-        {kind = AmbiguousConstant c; information = info})
+    |> List.map (fun ((info, c, _), _) -> {kind = AmbiguousConstant c; information = info})
     |> List.sort_uniq compare
 
 (* Returns the list of the errors about conflicts in the left members of the rules of the
- * expression e. Such a conflict appears when there is a constant of e which has two rules
- * having unifiable left members. The expression e has to be simple and external self
- * free. *)
+ * external constants of the expression e. Such a conflict appears when there is a constant
+ * of e which has two rules having unifiable left members. *)
 let conflict_errors e =
-    assert (Properties.is_simple e);
-    assert (Properties.is_external_self_free e);
     let rec aux e =
         match e with
-            |Expressions.Variable _ |Expressions.Self _ -> []
-            |Expressions.Constant (info, c, rules) ->
+            |E.Variable _ |E.Self _ |E.Alias _ |E.Put _ -> []
+            |E.Constant (info, c, rules) ->
                 let left_members =
-                    rules |> List.map (fun (e', _) -> Evaluations.substitute_self e' e)
+                    rules
+                    |> List.map (fun (e_lst, _) -> Op.left_member_rule_to_expression e e_lst)
                 in
-                let tmp_1 =
-                    if left_members |> Lists.triangle_product |> List.exists
-                        (fun (e1, e2) -> Substitutions.unify e1 e2 |> Option.is_some)
-                    then
-                        [{kind = RuleConflict c; information = info}]
-                    else
-                        []
-                in
-                let tmp_2 = rules |> Lists.map_pairs_operation aux (@) |> List.flatten in
-                tmp_1 @ tmp_2
-            |Expressions.Application (_, e1, e2) |Expressions.Map (_, e1, e2)
-            |Expressions.Shadow (_, e1, e2) ->
+                let lst = left_members |> Ls.triangle_product in
+                if lst |> List.exists (fun (e1, e2) -> S.unify e1 e2 |> Option.is_some) then
+                    [{kind = RuleConflict c; information = info}]
+                else
+                    []
+            |E.Application (_, e1, e2) |E.Map (_, e1, e2) |E.Shadow (_, e1, e2) ->
                 aux e1 @ aux e2
-            |_ -> Expressions.ValueError (e, "Errors.conflict_errors") |> raise
+            |E.AliasDefinition (_, _, e1, _) -> aux e1
     in
     aux e |> List.sort_uniq compare
-
-(* Returns the pair (errs, sh) where errs is list of the errors concerning the shadow of the
- * expression e, and sh is an option on the shadow of e if any and None otherwise. The
- * expression e has to be simple and external self free. *)
-let shadow_errors_and_shadow e =
-    assert (Properties.is_simple e);
-    assert (Properties.is_external_self_free e);
-    let sh = Shadows.compute e in
-    if Option.is_none sh then
-        ([{kind = InvalidShadow; information = Properties.root_information e}], None)
-    else
-        ([], sh)
 

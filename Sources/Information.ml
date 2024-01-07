@@ -1,15 +1,18 @@
 (* Author: Samuele Giraudo
  * Creation: may. 2022
- * Modifications: may. 2022, aug. 2022, oct. 2022, apr. 2022, jul. 2023
+ * Modifications: may. 2022, aug. 2022, oct. 2022, apr. 2022, jul. 2023, dec. 2023,
+ * jan. 2024
  *)
+
+module F = FilePositions
 
 (* The type to add information for each expression (and its subexpressions). *)
 type information = {
     (* The position with respect to the file where the subexpression appears. *)
-    file_position: FilePositions.file_positions option;
+    file_position: F.file_positions option;
 
     (* The index is a (unique) integer attributed to each subexpression. It is used in
-    * type checking. *)
+    * shadow inference. *)
     index: int option
 }
 
@@ -26,7 +29,7 @@ let empty =
 let to_string info =
     (match info.index with Some ind -> Printf.sprintf "I%d " ind |None -> "")
     ^
-    (match info.file_position with Some fp -> FilePositions.to_string fp |None -> "")
+    (match info.file_position with Some fp -> F.to_string fp |None -> "")
 
 (* Returns the index of the information info. This is an optional value. *)
 let index info =
@@ -36,4 +39,8 @@ let index info =
  * info. *)
 let set_index info index =
     {info with index = Some index}
+
+(* Returns the information obtained by deleting the index of the information info. *)
+let remove_index info =
+    {info with index = None}
 

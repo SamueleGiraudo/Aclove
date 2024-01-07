@@ -1,0 +1,6 @@
+'prefix [
+| !Empty (!../Naturals/Succ %n) # !Empty
+| %lst !../Naturals/Zero # !Empty
+| (!Cell %x %lst) (!../Naturals/Succ %n) # !Cell %x (@ %lst %n)
+]
+

@@ -1,5 +1,5 @@
 'is_zero [
-    @ !Zero -> !../Booleans/True;
-    @ (!Succ %n) -> !../Booleans/False
+| !Zero # !../Booleans/True
+| (!Succ %n) # !../Booleans/False
 ]
 

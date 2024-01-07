@@ -1,0 +1,6 @@
+'and [
+    | %u1 %u2 #
+        al = !Align %u1 %u2 .
+        !../Lists/Map2 !Bits/And (!../Products/Fst al) (!../Products/Snd al)
+]
+

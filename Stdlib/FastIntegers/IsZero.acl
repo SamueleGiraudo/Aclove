@@ -1,0 +1,24 @@
+let compose = put ../Functions/Compose in
+let is_empty = put ../BitSequences/IsEmpty in
+let snd = put ../Products/Snd in
+
+compose + is_empty + snd
+
+{
+let integers = put Integers in
+let bools = put ../Bools/Bools in
+let true = put ../Bools/True in
+let false = put ../Bools/False in
+let pair = put ../Products/Pair in
+let empty = put ../BitSequences/Empty in
+let b0 = put ../BitSequences/Push0 in
+let b1 = put ../BitSequences/Push1 in
+
+<'is_zero[integers ^ bools]
+    <'is_zero[%_]> + (pair + %s + empty) -> true
+    <'is_zero[%_]> + (pair + %s + (b0 + %u)) -> false
+    <'is_zero[%_]> + (pair + %s + (b1 + %u)) -> false
+
+>
+}
+
